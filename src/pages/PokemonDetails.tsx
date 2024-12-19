@@ -16,27 +16,23 @@ import { useAppDispatch, useAppSelector } from '../store/hook';
 import { getPokemonDetailAsyncThunk } from '../store/modules/getPokemonDetailSlice/getPokemonDetail.action';
 
 export const PokemonDetails = () => {
-	// Captura o parâmetro da URL
 	const { id } = useParams();
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
-	// Estado do Redux para detalhes do Pokémon
 	const {
 		loading,
 		error,
 		data: pokemonDetail,
-	} = useAppSelector((state) => state.getPokemonDetail);
+	} = useAppSelector((state) => state.getPokemonDetail)
 
-	// Busca os detalhes do Pokémon com base no ID
-useEffect(() => {
-	if (id) {
-		console.log('Chamando getPokemonDetailAsyncThunk com ID:', id);
-		dispatch(getPokemonDetailAsyncThunk(id));
-	} else {
-		console.log('ID não encontrado em useParams');
-	}
-}, [id, dispatch]);
+	useEffect(() => {
+		if (id) {
+			dispatch(getPokemonDetailAsyncThunk(id));
+		} else {
+			console.log('ID não encontrado em useParams');
+		}
+	}, [id, dispatch]);
 
 	// Carregando
 	if (loading) {
@@ -51,7 +47,6 @@ useEffect(() => {
 		);
 	}
 
-	// Erro
 	if (error || !pokemonDetail) {
 		return (
 			<Box
@@ -71,7 +66,6 @@ useEffect(() => {
 		);
 	}
 
-	// Exibe os detalhes do Pokémon
 	return (
 		<Box
 			display='flex'

@@ -1,9 +1,9 @@
-import { Root } from '../../types/pokemon.types';
+import { PokemonListResponse } from '../../types/pokemon.types';
 import { api } from './api.service';
 
-export async function getPokemon(): Promise<Root> {
+export async function getPokemon(): Promise<PokemonListResponse> {
 	try {
-		const response = await api.get<Root>('/pokemon');
+		const response = await api.get<PokemonListResponse>('/pokemon');
 		return {
 			count: response.data.count,
 			next: response.data.next,
@@ -11,7 +11,7 @@ export async function getPokemon(): Promise<Root> {
 			results: response.data.results,
 		};
 	} catch (error: any) {
-		console.error(error);
+		console.log(error);
 		return {
 			count: 0,
 			next: null,

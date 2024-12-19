@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getPokemonAsyncThunk } from './getPokemon.action';
-import { Root } from '../../../types/pokemon.types';
+import { PokemonListResponse } from "../../../types/pokemon.types";
 
-const initialState: Root = {
+const initialState: PokemonListResponse = {
 	count: 0,
 	next: null,
 	previous: null,

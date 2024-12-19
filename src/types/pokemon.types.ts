@@ -1,57 +1,40 @@
-export interface Root {
-	count: number;
-	next: string | null; 
-	previous: string | null; 
-	results?: Array<Result>;
-}
-
-export interface Result {
-	name: string;
-	url: string;
-}
-
-// src/types/pokemon.types.ts
-
-// Tipo para habilidades do Pokémon
 export interface PokemonAbility {
-  ability: {
-    name: string;
-    url: string;
-  };
+	ability: {
+		name: string;
+		url: string;
+	};
 }
 
-// Tipo para stats (ataque, defesa, etc.)
 export interface PokemonStat {
-  stat: {
-    name: string;
-  };
-  base_stat: number;
+	stat: {
+		name: string;
+	};
+	base_stat: number;
 }
 
 // Tipo para sprites (imagens do Pokémon)
 export interface PokemonSprites {
-  front_default: string;
+	front_default: string;
 }
 
 // Tipo para detalhes de um Pokémon
 export interface PokemonDetail {
-  id: number;
-  name: string;
-  abilities: string[];
-  stats: { name: string; value: number }[];
-  sprite: string;
+	id: number;
+	name: string;
+	abilities: string[];
+	stats: { name: string; value: number }[];
+	sprite: string;
 }
 
 // Tipo para a lista de Pokémons (paginada)
 export interface PokemonListResult {
-  name: string;
-  url: string;
+	name: string;
+	url: string;
 }
 
 export interface PokemonListResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PokemonListResult[];
+	count: number;
+	next: string | null;
+	previous: string | null;
+	results: PokemonListResult[];
 }
-

@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getPokemonDetailAsyncThunk } from './getPokemonDetail.action';
 import { PokemonDetail } from '../../../types/pokemon.types';
 
-// Estado inicial
 interface PokemonDetailState {
 	loading: boolean;
 	error: boolean;
@@ -16,7 +15,7 @@ const initialState: PokemonDetailState = {
 };
 
 export const getPokemonDetailSlice = createSlice({
-	name: 'getPokemonDetail',
+	name: 'pokemonDetail',
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {

@@ -3,8 +3,8 @@ import { getPokemonDetail } from '../../../config/services/getPokemonDetail.serv
 import { PokemonDetail } from '../../../types/pokemon.types';
 
 export const getPokemonDetailAsyncThunk = createAsyncThunk<
-	PokemonDetail, 
-	string 
->('getPokemonDetail/getPokemonDetailAsyncThunk', async (id) => {
-	return await getPokemonDetail(id); 
+	PokemonDetail, // Tipo de retorno
+	string // Tipo do argumento (name)
+>('getPokemonDetail/getPokemonDetailAsyncThunk', async (name: string) => {
+	return await getPokemonDetail(name);
 });
