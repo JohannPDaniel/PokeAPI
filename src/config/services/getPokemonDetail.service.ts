@@ -8,7 +8,6 @@ import { api } from './api.service';
 
 export async function getPokemonDetail(name: string): Promise<PokemonDetail> {
 	try {
-		console.log('Buscando detalhes para o Pokémon:', name);
 		const response = await api.get<{
 			id: number;
 			name: string;
