@@ -1,5 +1,5 @@
-import { Root } from "../../types/pokemon.types";
-import { api } from "./api.service";
+import { Root } from '../../types/pokemon.types';
+import { api } from './api.service';
 
 export async function getPokemon(): Promise<Root> {
 	try {

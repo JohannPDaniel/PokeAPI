@@ -2,12 +2,17 @@
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from "../../pages/Home";
+import { PokemonDetails } from "../../pages/PokemonDetails";
 
 const router = createBrowserRouter([
-    {
-        path: '/',
-        element: <Home />,
-    },
+	{
+		path: '/',
+		element: <Home />,
+	},
+	{
+		path: '/pokemon/:id',
+		element: <PokemonDetails />,
+	},
 ]);
 
 function AppRoutes() {

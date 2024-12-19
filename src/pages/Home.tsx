@@ -1,11 +1,12 @@
 import { Box } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../store/hook';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../store/hook';
 import { getPokemonAsyncThunk } from '../store/modules/getPokemonSlice/getPokemon.action';
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
-	const getPokemon = useAppSelector((state) => state.getPokemon);
+	const pokemonList = useAppSelector((state) => state.getPokemon);
 
 	useEffect(() => {
 		dispatch(getPokemonAsyncThunk());
@@ -13,16 +14,12 @@ export const Home = () => {
 
 	return (
 		<Box>
-			{getPokemon.results && getPokemon.results.length > 0 ? (
-				getPokemon.results.map((pok) => (
-					<>
-						<h1 key={pok.name}>{pok.name}</h1>
-						<p>{pok.url}</p>
-					</>
-				))
-			) : (
-				<p>Carregando dados...</p>
-			)}
+			{pokemonList.results?.map((pokemon) => (
+				<Box key={pokemon.name}>
+					<h2>{pokemon.name}</h2>
+					<Link to={`/pokemon/${pokemon.name}`}>Ver Detalhes</Link>
+				</Box>
+			))}
 		</Box>
 	);
 };
