@@ -16,10 +16,11 @@ export async function getPokemonDetail(name: string): Promise<PokemonDetail> {
 			sprites: PokemonSprites;
 		}>(`/pokemon/${name}`); 
 
+
 		return {
 			id: response.data.id,
 			name: response.data.name,
-			abilities: response.data.abilities.map((a) => a.ability.name),
+			abilities: response.data.abilities,
 			stats: response.data.stats.map((s) => ({
 				name: s.stat.name,
 				value: s.base_stat,

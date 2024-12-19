@@ -104,9 +104,9 @@ export const PokemonDetails = () => {
 							Habilidades:
 						</Typography>
 						<List>
-							{pokemonDetail.abilities.map((ability) => (
-								<ListItem key={ability}>
-									<ListItemText primary={ability} />
+							{pokemonDetail.abilities.map((abilities, index) => (
+								<ListItem key={index}>
+									<ListItemText primary={abilities.ability.name} />
 								</ListItem>
 							))}
 						</List>

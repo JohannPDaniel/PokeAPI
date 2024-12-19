@@ -13,7 +13,7 @@ export interface PokemonListResponse {
 export interface PokemonDetail {
 	id: number;
 	name: string;
-	abilities: string[];
+	abilities: PokemonAbility[];
 	stats: { name: string; value: number }[];
 	sprite: string;
 }
