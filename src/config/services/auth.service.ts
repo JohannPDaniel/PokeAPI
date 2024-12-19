@@ -1,21 +1,22 @@
-import { LoginRequest } from '../../utils/types/auth';
-import { api, ResponseAPI } from './api.service';
+import { Root } from "../../types/pokemon.types";
+import { api } from "./api.service";
 
-export async function loginService(
-	data: Omit<LoginRequest, 'remember'>
-): Promise<ResponseAPI> {
+export async function getPokemon(): Promise<Root> {
 	try {
-		const { email, password } = data;
-		const response = await api.post('/login', { email, password });
+		const response = await api.get<Root>('/pokemon');
 		return {
-			success: response.data.success,
-			message: response.data.message,
-			data: response.data.data,
+			count: response.data.count,
+			next: response.data.next,
+			previous: response.data.previous,
+			results: response.data.results,
 		};
 	} catch (error: any) {
+		console.error(error);
 		return {
-			success: error.response.data.success,
-			message: error.response.data.message,
+			count: 0,
+			next: null,
+			previous: null,
+			results: [],
 		};
 	}
 }
