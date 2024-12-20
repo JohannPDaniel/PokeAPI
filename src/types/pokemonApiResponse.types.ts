@@ -1,8 +1,8 @@
 export interface PokemonApiResponseTypes {
 	count: number;
-	next: string;
+	next: string | null;
 	previous: any;
-	results: Result[];
+	results?: Result[];
 }
 
 export interface Result {
