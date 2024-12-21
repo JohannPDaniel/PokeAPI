@@ -64,7 +64,15 @@ export const Home = () => {
 			{/* <div style={{ display: 'flex', gap: '5px', marginTop: '20px' }}>
 				{renderPagination(pagination, handlePageChange, searchTerm)}
 			</div> */}
-			<div style={{ display: 'flex', gap: '0px', marginTop: '20px' }}>
+			<div
+				style={{
+					display: 'flex',
+					justifyContent: "center",
+					width: '100%',
+					maxWidth: 422.1,
+					background: 'red',
+					marginTop: '20px',
+				}}>
 				<RenderPagination
 					handlePageChange={handlePageChange}
 					pagination={pagination}
