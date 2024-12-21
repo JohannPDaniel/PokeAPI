@@ -3,9 +3,9 @@ import { fetchPokemonDataService } from '../../../config/services/fetchPokemon.s
 import { PokemonDetailsTypes } from '../../../types/pokemonDetails.types';
 
 interface PokemonState {
-	allPokemons: PokemonDetailsTypes[]; // Todos os Pokémons
-	filteredPokemons: PokemonDetailsTypes[]; // Pokémons após a filtragem
-	currentPagePokemons: PokemonDetailsTypes[]; // Pokémons da página atual
+	allPokemons: PokemonDetailsTypes[];
+	filteredPokemons: PokemonDetailsTypes[]; 
+	currentPagePokemons: PokemonDetailsTypes[];
 	pagination: {
 		totalPages: number;
 		currentPage: number;
@@ -23,14 +23,13 @@ const initialState: PokemonState = {
 	pagination: {
 		totalPages: 0,
 		currentPage: 1,
-		itemsPerPage: 10, // Quantidade de Pokémons por página
+		itemsPerPage: 10, 
 	},
 	searchTerm: '',
 	status: 'idle',
 	error: null,
 };
 
-// Thunk para buscar todos os Pokémons
 export const fetchAllPokemons = createAsyncThunk(
 	'pokemon/fetchAllPokemons',
 	async (_, { rejectWithValue }) => {
@@ -59,19 +58,17 @@ const pokemonSlice = createSlice({
 			state.searchTerm = action.payload;
 
 			if (!action.payload.trim()) {
-				state.filteredPokemons = state.allPokemons; // Reseta a lista filtrada
+				state.filteredPokemons = state.allPokemons; 
 			} else {
 				state.filteredPokemons = state.allPokemons.filter((pokemon) =>
 					pokemon.name.toLowerCase().includes(action.payload.toLowerCase())
 				);
 			}
 
-			// Recalcular a paginação
 			state.pagination.totalPages = Math.ceil(
 				state.filteredPokemons.length / state.pagination.itemsPerPage
 			);
 
-			// Reinicia para a primeira página após a pesquisa
 			state.pagination.currentPage = 1;
 
 			state.currentPagePokemons = state.filteredPokemons.slice(
@@ -106,7 +103,6 @@ const pokemonSlice = createSlice({
 					action.payload.length / state.pagination.itemsPerPage
 				);
 
-				// Inicializar com a primeira página
 				state.currentPagePokemons = action.payload.slice(
 					0,
 					state.pagination.itemsPerPage
