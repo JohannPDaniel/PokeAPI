@@ -7,7 +7,7 @@ export interface CombinedPokemonData {
 	pokemonDetails: PokemonDetailsTypes[];
 }
 
-export async function fetchPokemonData(
+export async function fetchPokemonDataService(
 	url?: string
 ): Promise<CombinedPokemonData> {
 	const defaultUrl = `/pokemon?offset=0&limit=10`;

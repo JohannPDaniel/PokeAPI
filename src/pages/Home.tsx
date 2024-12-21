@@ -1,30 +1,31 @@
-import { fetchPokemonData } from '../config/services/getPokemon.service';
-import { useCallback, useEffect, useState } from 'react';
-import { PokemonDetailsTypes } from '../types/pokemonDetails.types';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../store/hook';
+import { fetchPokemonData } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
 
 export const Home = () => {
-	const [pokemonList, setPokemonList] = useState<PokemonDetailsTypes[]>([]);
-	const [pagination, setPagination] = useState({
-		count: 0,
-		next: null as string | null,
-		previous: null as string | null,
-	});
-
-	const fetchData = useCallback(async (url?: string) => {
-		const data = await fetchPokemonData(url);
-
-		console.log('fetchData chamado com URL:', url);
-		setPokemonList(data.pokemonDetails);
-		setPagination({
-			count: data.pagination.count,
-			next: data.pagination.next,
-			previous: data.pagination.previous,
-		});
-	}, []);
+	const dispatch = useAppDispatch();
+	const { pokemonList, pagination, status, error } = useAppSelector(
+		(state) => state.pokemon
+	);
 
 	useEffect(() => {
-		fetchData(); // Busca a página inicial
-	}, []);
+		const initialUrl = '/pokemon?offset=0&limit=10';
+		dispatch(fetchPokemonData(initialUrl));
+	}, [dispatch]);
+
+	const handlePagination = (url: string | null) => {
+		if (url) {
+			dispatch(fetchPokemonData(url));
+		}
+	};
+
+	if (status === 'loading') {
+		return <p>Carregando...</p>;
+	}
+
+	if (status === 'failed') {
+		return <p>Erro: {error}</p>;
+	}
 
 	return (
 		<div>
@@ -33,19 +34,19 @@ export const Home = () => {
 				{pokemonList.map((pokemon) => (
 					<li key={pokemon.id}>
 						<strong>{pokemon.name}</strong> - Altura: {pokemon.height}, Peso:{' '}
-						{pokemon.weight}
+						{pokemon.weight}, Experiência: {pokemon.base_experience}
 					</li>
 				))}
 			</ol>
 
 			<div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
 				{pagination.previous && (
-					<button onClick={() => fetchData(pagination.previous || undefined)}>
+					<button onClick={() => handlePagination(pagination.previous)}>
 						Página Anterior
 					</button>
 				)}
 				{pagination.next && (
-					<button onClick={() => fetchData(pagination.next || undefined)}>
+					<button onClick={() => handlePagination(pagination.next)}>
 						Próxima Página
 					</button>
 				)}
