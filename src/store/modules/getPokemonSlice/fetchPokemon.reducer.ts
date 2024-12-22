@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPokemonDataService } from '../../../config/services/fetchPokemon.service';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PokemonDetailsTypes } from '../../../types/pokemonDetails.types';
+import { fetchAllPokemons } from './fetchPokemon.action';
 
 interface PokemonState {
 	allPokemons: PokemonDetailsTypes[];
-	filteredPokemons: PokemonDetailsTypes[]; 
+	filteredPokemons: PokemonDetailsTypes[];
 	currentPagePokemons: PokemonDetailsTypes[];
 	pagination: {
 		totalPages: number;
@@ -23,32 +23,12 @@ const initialState: PokemonState = {
 	pagination: {
 		totalPages: 0,
 		currentPage: 1,
-		itemsPerPage: 10, 
+		itemsPerPage: 10,
 	},
 	searchTerm: '',
 	status: 'idle',
 	error: null,
 };
-
-export const fetchAllPokemons = createAsyncThunk(
-	'pokemon/fetchAllPokemons',
-	async (_, { rejectWithValue }) => {
-		try {
-			let nextUrl: string | null = '/pokemon?offset=0&limit=100';
-			const allPokemonDetails: PokemonDetailsTypes[] = [];
-
-			while (nextUrl) {
-				const data = await fetchPokemonDataService(nextUrl);
-				allPokemonDetails.push(...data.pokemonDetails);
-				nextUrl = data.pagination.next;
-			}
-
-			return allPokemonDetails;
-		} catch (error) {
-			return rejectWithValue('Erro ao buscar todos os Pokémons');
-		}
-	}
-);
 
 const pokemonSlice = createSlice({
 	name: 'pokemon',
@@ -58,7 +38,7 @@ const pokemonSlice = createSlice({
 			state.searchTerm = action.payload;
 
 			if (!action.payload.trim()) {
-				state.filteredPokemons = state.allPokemons; 
+				state.filteredPokemons = state.allPokemons;
 			} else {
 				state.filteredPokemons = state.allPokemons.filter((pokemon) =>
 					pokemon.name.toLowerCase().includes(action.payload.toLowerCase())
@@ -97,16 +77,26 @@ const pokemonSlice = createSlice({
 			})
 			.addCase(fetchAllPokemons.fulfilled, (state, action) => {
 				state.status = 'succeeded';
-				state.allPokemons = action.payload;
-				state.filteredPokemons = action.payload;
-				state.pagination.totalPages = Math.ceil(
-					action.payload.length / state.pagination.itemsPerPage
-				);
 
-				state.currentPagePokemons = action.payload.slice(
-					0,
-					state.pagination.itemsPerPage
-				);
+				// Atualiza o estado com os dados normalizados
+				if (action.payload?.entities?.pokemon) {
+					state.allPokemons = Object.values(action.payload.entities.pokemon);
+					state.filteredPokemons = Object.values(
+						action.payload.entities.pokemon
+					);
+					state.pagination.totalPages = Math.ceil(
+						state.filteredPokemons.length / state.pagination.itemsPerPage
+					);
+					state.currentPagePokemons = state.filteredPokemons.slice(
+						0,
+						state.pagination.itemsPerPage
+					);
+				} else {
+					state.allPokemons = [];
+					state.filteredPokemons = [];
+					state.currentPagePokemons = [];
+					state.pagination.totalPages = 0;
+				}
 			})
 			.addCase(fetchAllPokemons.rejected, (state, action) => {
 				state.status = 'failed';

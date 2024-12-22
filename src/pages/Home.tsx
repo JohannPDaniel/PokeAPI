@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react';
+import { Box, CircularProgress, Grid2, TextField } from '@mui/material';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hook';
+import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
 import {
-	fetchAllPokemons,
-	setSearchTerm,
 	setPage,
+	setSearchTerm,
 } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
 import { RenderPagination } from './dsafs';
-import {
-	Box,
-	CircularProgress,
-	Grid2,
-	TextField,
-} from '@mui/material';
-import CircularDeterminate from "../components/CircularProgress";
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
@@ -40,7 +34,11 @@ export const Home = () => {
 					justifyContent: 'center',
 					height: '100vh',
 				}}>
-				<CircularProgress variant="indeterminate" thickness={5} size='4rem' />
+				<CircularProgress
+					variant='indeterminate'
+					thickness={5}
+					size='4rem'
+				/>
 			</Box>
 		);
 	}
@@ -48,6 +46,7 @@ export const Home = () => {
 	if (status === 'failed') {
 		return <p>Erro: {error}</p>;
 	}
+
 
 	return (
 		<Box
@@ -60,7 +59,6 @@ export const Home = () => {
 			}}>
 			<h1>Lista de Pokémons</h1>
 
-			{/* Input de Pesquisa */}
 			<Box
 				sx={{
 					marginBottom: '20px',
