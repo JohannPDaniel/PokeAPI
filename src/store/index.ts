@@ -18,7 +18,7 @@ const actionSanitizer = (action: any) =>
 		: action;
 
 const stateSanitizer = (state: any) =>
-	state.allPokemons?.length > 1000
+	state.allPokemons?.length > 1300
 		? { ...state, allPokemons: '<<DATA_TOO_LARGE>>' }
 		: state;
 

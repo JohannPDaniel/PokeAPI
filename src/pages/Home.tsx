@@ -11,7 +11,7 @@ import { RenderPagination } from './dsafs';
 export const Home = () => {
 	const dispatch = useAppDispatch();
 	const { currentPagePokemons, pagination, searchTerm, status, error } =
-		useAppSelector((state) => state.pokemon);
+		useAppSelector( ( state ) => state.pokemon );
 
 	useEffect(() => {
 		dispatch(fetchAllPokemons());
