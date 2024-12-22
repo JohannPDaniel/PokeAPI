@@ -8,3 +8,4 @@ export const fetchPokemonData = createAsyncThunk(
 		return data;
 	}
 );
+console.log('fetchPokemonData:', fetchPokemonData)

@@ -6,6 +6,13 @@ import {
 	setPage,
 } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
 import { RenderPagination } from './dsafs';
+import {
+	Box,
+	CircularProgress,
+	Grid2,
+	TextField,
+} from '@mui/material';
+import CircularDeterminate from "../components/CircularProgress";
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
@@ -25,7 +32,17 @@ export const Home = () => {
 	};
 
 	if (status === 'loading') {
-		return <p>Carregando...</p>;
+		return (
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+					height: '100vh',
+				}}>
+				<CircularProgress variant="indeterminate" thickness={5} size='4rem' />
+			</Box>
+		);
 	}
 
 	if (status === 'failed') {
@@ -33,26 +50,40 @@ export const Home = () => {
 	}
 
 	return (
-		<div>
+		<Box
+			sx={{
+				height: '100vh',
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				justifyContent: 'center',
+			}}>
 			<h1>Lista de Pokémons</h1>
 
 			{/* Input de Pesquisa */}
-			<div style={{ marginBottom: '20px' }}>
-				<input
+			<Box
+				sx={{
+					marginBottom: '20px',
+				}}>
+				<TextField
 					type='text'
 					placeholder='Pesquise um Pokémon'
 					value={searchTerm}
 					onChange={handleSearchChange}
 					style={{
 						padding: '10px',
-						fontSize: '16px',
 						width: '100%',
-						maxWidth: '400px',
+						minWidth: 350,
 					}}
 				/>
-			</div>
+			</Box>
 
-			<ol>
+			<ol
+				style={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+				}}>
 				{currentPagePokemons.map((pokemon) => (
 					<li key={pokemon.id}>
 						<strong>{pokemon.name}</strong> - Altura: {pokemon.height}, Peso:{' '}
@@ -64,21 +95,21 @@ export const Home = () => {
 			{/* <div style={{ display: 'flex', gap: '5px', marginTop: '20px' }}>
 				{renderPagination(pagination, handlePageChange, searchTerm)}
 			</div> */}
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: "center",
-					width: '100%',
-					maxWidth: 422.1,
-					background: 'red',
-					marginTop: '20px',
-				}}>
-				<RenderPagination
-					handlePageChange={handlePageChange}
-					pagination={pagination}
-					searchTerm={searchTerm}
-				/>
-			</div>
-		</div>
+			<Grid2
+				container
+				sx={{ marginTop: '20px' }}>
+				<Grid2
+					sx={{
+						background: 'red',
+						borderRadius: 5,
+					}}>
+					<RenderPagination
+						handlePageChange={handlePageChange}
+						pagination={pagination}
+						searchTerm={searchTerm}
+					/>
+				</Grid2>
+			</Grid2>
+		</Box>
 	);
 };

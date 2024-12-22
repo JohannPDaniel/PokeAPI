@@ -10,7 +10,7 @@ export interface CombinedPokemonData {
 export async function fetchPokemonDataService(
 	url?: string
 ): Promise<CombinedPokemonData> {
-	const defaultUrl = `/pokemon?offset=0&limit=10`;
+	const defaultUrl = `/pokemon?offset=0&limit=20`;
 	const fetchUrl = url || defaultUrl;
 
 	try {

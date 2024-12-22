@@ -125,13 +125,14 @@ export const RenderPagination: React.FC<RenderPaginationProps> = ({
 			boundaryCount={1}
 			variant='text'
             shape='rounded'
-            color="primary"
 			onChange={(_, page) => handlePageChange(page)}
 			showFirstButton
 			showLastButton
 			sx={{
 				'& .MuiPaginationItem-root': {
 					color: 'yellow', 
+					backgroundColor: 'red',
+					borderRadius: 4,
 					'&.Mui-selected': {
 						backgroundColor: 'yellow', 
 						color: 'red', 
