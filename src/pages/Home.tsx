@@ -1,4 +1,12 @@
-import { Box, CircularProgress, Grid2, TextField } from '@mui/material';
+import {
+	Box,
+	CircularProgress,
+	Grid2,
+	List,
+	ListItem,
+	ListItemText,
+	TextField,
+} from '@mui/material';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
@@ -42,50 +50,61 @@ export const Home = () => {
 	}
 
 	return (
-		<Grid2 container>
-			<Grid2
-				size={12}
-				sx={{
-					
-				}}>
-				<h1>Lista de Pokémons</h1>
-
-				<Box
-					sx={{
-						marginBottom: '20px',
-					}}>
-					<TextField
-						type='text'
-						placeholder='Pesquise um Pokémon'
-						value={searchTerm}
-						onChange={handleSearchChange}
-						style={{
-							padding: '10px',
-							width: '100%',
-						}}
-					/>
-				</Box>
-
-				<ol
-					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-					}}>
-					{currentPagePokemons.map((pokemon) => (
-						<li key={pokemon.id}>
-							<strong>{pokemon.name}</strong> - Altura: {pokemon.height}, Peso:{' '}
-							{pokemon.weight}, Experiência: {pokemon.base_experience}
-						</li>
-					))}
-				</ol>
-				<Pagination />
+		<Box
+			sx={{
+				display: 'flex',
+				flexDirection: 'column',
+				minHeight: '100vh', 
+			}}>
+			<Grid2 container>
+				<Grid2
+					size={12}
+					sx={{}}>
+					<h1>Lista de Pokémons</h1>
+					<Box
+						sx={{
+							marginBottom: '20px',
+						}}>
+						<TextField
+							type='text'
+							placeholder='Pesquise um Pokémon'
+							value={searchTerm}
+							onChange={handleSearchChange}
+							style={{
+								padding: '10px',
+								width: '100%',
+							}}
+						/>
+					</Box>
+					<List
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							flex: '1 1 auto',
+						}}>
+						{currentPagePokemons.map((pokemon) => (
+							<ListItem key={pokemon.id}>
+								<ListItemText
+									primary={`${pokemon.name}`}
+									secondary={`Altura: ${pokemon.height}, Peso: ${pokemon.weight}, Experiência: ${pokemon.base_experience}`}
+								/>
+							</ListItem>
+						))}
+					</List>
+				</Grid2>
 			</Grid2>
-		</Grid2>
+			{/* Posição da paginação */}
+			<Box
+				sx={{
+					marginTop: 'auto', // Empurra a paginação para o final
+					display: 'flex',
+					justifyContent: 'center',
+					padding: '20px', // Espaçamento para não encostar no rodapé
+					background: '#f9f9f9',
+				}}>
+				<Pagination />
+			</Box>
+		</Box>
 	);
 };
-{
-	/* <div style={{ display: 'flex', gap: '5px', marginTop: '20px' }}>
-	{renderPagination(pagination, handlePageChange, searchTerm)}
-</div> */
-}

@@ -12,27 +12,14 @@ export const Pagination = () => {
 	};
 
 	return (
-		<Grid2
-			container
-			sx={{ marginTop: '20px' }}>
+		<Grid2 container>
 			<Grid2
-				size={{
-					xs: 10.2, 
-					sm: 6.8,
-					md: 5,
-					lg: 3.8,
-				}}
-				offset={{
-					xs: 0.8, 
-					sm: 2.6,
-					md: 3.5,
-					lg: 4.1,
-				}}
+				size={12}
 				sx={{
 					background: 'red',
 					borderRadius: 5,
-					display: "flex",
-					justifyContent: "center"
+					display: 'flex',
+					justifyContent: 'center',
 				}}>
 				<RenderPagination
 					handlePageChange={handlePageChange}
