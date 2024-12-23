@@ -45,12 +45,10 @@ const pokemonSlice = createSlice({
 				);
 			}
 
-			// Atualizar total de páginas com base no tamanho da lista filtrada
 			state.pagination.totalPages = Math.ceil(
 				state.filteredPokemons.length / state.pagination.itemsPerPage
 			);
 
-			// Resetar para a primeira página e ajustar os Pokémon exibidos
 			state.pagination.currentPage = 1;
 
 			const startIndex = 0;
