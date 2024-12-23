@@ -45,15 +45,23 @@ const pokemonSlice = createSlice({
 				);
 			}
 
+			// Atualizar total de páginas com base no tamanho da lista filtrada
 			state.pagination.totalPages = Math.ceil(
 				state.filteredPokemons.length / state.pagination.itemsPerPage
 			);
 
+			// Resetar para a primeira página e ajustar os Pokémon exibidos
 			state.pagination.currentPage = 1;
 
-			state.currentPagePokemons = state.filteredPokemons.slice(
-				0,
+			const startIndex = 0;
+			const endIndex = Math.min(
+				state.filteredPokemons.length,
 				state.pagination.itemsPerPage
+			);
+
+			state.currentPagePokemons = state.filteredPokemons.slice(
+				startIndex,
+				endIndex
 			);
 		},
 
@@ -78,7 +86,6 @@ const pokemonSlice = createSlice({
 			.addCase(fetchAllPokemons.fulfilled, (state, action) => {
 				state.status = 'succeeded';
 
-				// Atualiza o estado com os dados normalizados
 				if (action.payload?.entities?.pokemon) {
 					state.allPokemons = Object.values(action.payload.entities.pokemon);
 					state.filteredPokemons = Object.values(

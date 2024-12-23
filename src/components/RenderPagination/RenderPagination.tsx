@@ -1,4 +1,4 @@
-import { Pagination } from '@mui/material';
+import { Pagination, useMediaQuery, useTheme } from '@mui/material';
 
 export interface PaginationState {
 	currentPage: number;
@@ -11,6 +11,45 @@ interface RenderPaginationProps {
 	handlePageChange: (page: number) => void;
 	searchTerm: string;
 }
+
+
+export const RenderPagination = ({
+	pagination,
+	handlePageChange,
+}: RenderPaginationProps) => {
+	const { currentPage, totalPages } = pagination;
+
+	// Hook do MUI para identificar breakpoints
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
+
+	return (
+		<Pagination
+			count={totalPages}
+			page={currentPage}
+			siblingCount={isMobile ? 1 : 1} 
+			boundaryCount={isMobile ? 0 : 1} 
+			shape='circular'
+			onChange={(_, page) => handlePageChange(page)}
+			showFirstButton
+			showLastButton
+			sx={{
+				'& .MuiPaginationItem-root': {
+					color: 'yellow',
+					backgroundColor: 'red',
+					'&.Mui-selected': {
+						backgroundColor: 'yellow',
+						color: 'red',
+					},
+					'&:hover': {
+						backgroundColor: '#ed6f6f',
+						color: 'yellow',
+					},
+				},
+			}}
+		/>
+	);
+};
 
 // export const renderPagination = (
 // 	pagination: PaginationState,
@@ -110,39 +149,3 @@ interface RenderPaginationProps {
 
 // 	return pages;
 // };
-
-export const RenderPagination: React.FC<RenderPaginationProps> = ({
-	pagination,
-	handlePageChange,
-}) => {
-	const { currentPage, totalPages } = pagination;
-
-	return (
-		<Pagination
-			count={totalPages}
-			page={currentPage}
-			siblingCount={1}
-			boundaryCount={1}
-			variant='text'
-            shape='rounded'
-			onChange={(_, page) => handlePageChange(page)}
-			showFirstButton
-			showLastButton
-			sx={{
-				'& .MuiPaginationItem-root': {
-					color: 'yellow', 
-					backgroundColor: 'red',
-					borderRadius: 4,
-					'&.Mui-selected': {
-						backgroundColor: 'yellow', 
-						color: 'red', 
-					},
-					'&:hover': {
-						backgroundColor: '#ed6f6f',
-						color: 'yellow',
-					},
-				},
-			}}
-		/>
-	);
-};

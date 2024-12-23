@@ -2,16 +2,14 @@ import { Box, CircularProgress, Grid2, TextField } from '@mui/material';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
-import {
-	setPage,
-	setSearchTerm,
-} from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
-import { RenderPagination } from './dsafs';
+import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
+import { Pagination } from '../components/RenderPagination';
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
-	const { currentPagePokemons, pagination, searchTerm, status, error } =
-		useAppSelector( ( state ) => state.pokemon );
+	const { currentPagePokemons, searchTerm, status, error } = useAppSelector(
+		(state) => state.pokemon
+	);
 
 	useEffect(() => {
 		dispatch(fetchAllPokemons());
@@ -19,10 +17,6 @@ export const Home = () => {
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setSearchTerm(event.target.value));
-	};
-
-	const handlePageChange = (page: number) => {
-		dispatch(setPage(page));
 	};
 
 	if (status === 'loading') {
@@ -47,67 +41,51 @@ export const Home = () => {
 		return <p>Erro: {error}</p>;
 	}
 
-
 	return (
-		<Box
-			sx={{
-				height: '100vh',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				justifyContent: 'center',
-			}}>
-			<h1>Lista de Pokémons</h1>
-
-			<Box
-				sx={{
-					marginBottom: '20px',
-				}}>
-				<TextField
-					type='text'
-					placeholder='Pesquise um Pokémon'
-					value={searchTerm}
-					onChange={handleSearchChange}
-					style={{
-						padding: '10px',
-						width: '100%',
-						minWidth: 350,
-					}}
-				/>
-			</Box>
-
-			<ol
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}>
-				{currentPagePokemons.map((pokemon) => (
-					<li key={pokemon.id}>
-						<strong>{pokemon.name}</strong> - Altura: {pokemon.height}, Peso:{' '}
-						{pokemon.weight}, Experiência: {pokemon.base_experience}
-					</li>
-				))}
-			</ol>
-
-			{/* <div style={{ display: 'flex', gap: '5px', marginTop: '20px' }}>
-				{renderPagination(pagination, handlePageChange, searchTerm)}
-			</div> */}
+		<Grid2 container>
 			<Grid2
-				container
-				sx={{ marginTop: '20px' }}>
-				<Grid2
+				size={12}
+				sx={{
+					
+				}}>
+				<h1>Lista de Pokémons</h1>
+
+				<Box
 					sx={{
-						background: 'red',
-						borderRadius: 5,
+						marginBottom: '20px',
 					}}>
-					<RenderPagination
-						handlePageChange={handlePageChange}
-						pagination={pagination}
-						searchTerm={searchTerm}
+					<TextField
+						type='text'
+						placeholder='Pesquise um Pokémon'
+						value={searchTerm}
+						onChange={handleSearchChange}
+						style={{
+							padding: '10px',
+							width: '100%',
+						}}
 					/>
-				</Grid2>
+				</Box>
+
+				<ol
+					style={{
+						display: 'flex',
+						flexDirection: 'column',
+						alignItems: 'center',
+					}}>
+					{currentPagePokemons.map((pokemon) => (
+						<li key={pokemon.id}>
+							<strong>{pokemon.name}</strong> - Altura: {pokemon.height}, Peso:{' '}
+							{pokemon.weight}, Experiência: {pokemon.base_experience}
+						</li>
+					))}
+				</ol>
+				<Pagination />
 			</Grid2>
-		</Box>
+		</Grid2>
 	);
 };
+{
+	/* <div style={{ display: 'flex', gap: '5px', marginTop: '20px' }}>
+	{renderPagination(pagination, handlePageChange, searchTerm)}
+</div> */
+}
