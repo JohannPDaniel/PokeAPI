@@ -1,45 +1,45 @@
 {
-	"name": "harrypotterapi",
-	"version": "1.0.0",
-	"description": "",
-	"main": "app.js",
-	"type": "module",
-	"scripts": {
-		"dev": "vite --open",
-		"build": "tsc -b && vite build",
-		"lint": "eslint .",
-		"preview": "vite preview"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"@emotion/react": "^11.14.0",
-		"@emotion/styled": "^11.14.0",
-		"@fontsource/poppins": "^5.1.0",
-		"@mui/icons-material": "^6.2.1",
-		"@mui/material": "^6.2.1",
-		"@reduxjs/toolkit": "^2.5.0",
-		"axios": "^1.7.9",
-		"normalizr": "^3.6.2",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0",
-		"react-redux": "^9.2.0",
-		"react-router-dom": "^7.1.0",
-		"redux-persist": "^6.0.0"
-	},
-	"devDependencies": {
-		"@eslint/js": "^9.17.0",
-		"@types/normalizr": "^2.0.18",
-		"@types/react": "^19.0.2",
-		"@types/react-dom": "^19.0.2",
-		"@vitejs/plugin-react": "^4.3.4",
-		"eslint": "^9.17.0",
-		"eslint-plugin-react-hooks": "^5.1.0",
-		"eslint-plugin-react-refresh": "^0.4.16",
-		"globals": "^15.14.0",
-		"typescript": "^5.7.2",
-		"typescript-eslint": "^8.18.1",
-		"vite": "^6.0.5"
-	}
+  "name": "harrypotterapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --open",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@fontsource/poppins": "^5.1.0",
+    "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
+    "@reduxjs/toolkit": "^2.5.0",
+    "axios": "^1.7.9",
+    "normalizr": "^3.6.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.1.1",
+    "redux-persist": "^6.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/normalizr": "^2.0.18",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.5"
+  }
 }

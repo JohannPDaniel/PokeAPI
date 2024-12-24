@@ -1,6 +1,5 @@
 import {
 	Box,
-	CircularProgress,
 	Grid2,
 	List,
 	ListItem,
@@ -12,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../store/hook';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
 import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
 import { Pagination } from '../components/RenderPagination';
+import pokebola from "../assets/pokebola.gif"
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
@@ -36,10 +36,9 @@ export const Home = () => {
 					justifyContent: 'center',
 					height: '100vh',
 				}}>
-				<CircularProgress
-					variant='indeterminate'
-					thickness={5}
-					size='4rem'
+				<img
+					src={pokebola}
+					alt='Pokebola'
 				/>
 			</Box>
 		);
@@ -59,7 +58,7 @@ export const Home = () => {
 			<Grid2 container>
 				<Grid2
 					size={12}
-					sx={{}}>
+					>
 					<h1>Lista de Pokémons</h1>
 					<Box
 						sx={{
