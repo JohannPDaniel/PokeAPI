@@ -13,6 +13,20 @@ import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.
 import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
 import { Pagination } from '../components/RenderPagination';
 import pokebola from '../assets/pokebola.gif';
+import pokemon from '../assets/pokemon.png';
+
+const style = {
+	width: '100%',
+	maxWidth: 300,
+	alignSelf: 'center',
+	marginBlock: 3,
+	animation: 'pulse 1.3s infinite', // Adiciona a animação
+	'@keyframes pulse': {
+		'0%': { transform: 'scale(1)' },
+		'50%': { transform: 'scale(1.3)' },
+		'100%': { transform: 'scale(1)' },
+	},
+};
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
@@ -61,8 +75,15 @@ export const Home = () => {
 				minHeight: '100vh',
 			}}>
 			<Grid2 container>
-				<Grid2 size={12}>
-					<h1>Lista de Pokémons</h1>
+				<Grid2
+					size={12}
+					sx={{ display: 'flex', flexDirection: 'column' }}>
+					<Box
+						component="img"
+						src={pokemon}
+						alt='pokemon'
+						sx={style}
+					/>
 					<Box
 						sx={{
 							marginBottom: '20px',
@@ -82,7 +103,6 @@ export const Home = () => {
 						sx={{
 							display: 'flex',
 							flexDirection: 'column',
-							alignItems: 'center',
 							flex: '1 1 auto',
 						}}>
 						{currentPagePokemons.map((pokemon) => (
