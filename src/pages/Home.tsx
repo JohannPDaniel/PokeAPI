@@ -20,7 +20,7 @@ const style = {
 	maxWidth: 300,
 	alignSelf: 'center',
 	marginBlock: 3,
-	animation: 'pulse 1.3s infinite', // Adiciona a animação
+	animation: 'pulse 1.3s infinite', 
 	'@keyframes pulse': {
 		'0%': { transform: 'scale(1)' },
 		'50%': { transform: 'scale(1.3)' },
@@ -44,16 +44,18 @@ export const Home = () => {
 				open={status === 'loading'}
 				sx={{
 					backgroundColor: 'rgba(255, 255, 0, 0.5)',
-					backdropFilter: 'blur(8px)',
+					backdropFilter: 'blur(18px)',
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',
+					zIndex: 999,
 				}}>
 				<img
 					src={pokebola}
 					alt='Pokebola'
 					style={{
 						clipPath: 'circle(50%)',
+						zIndex: 999,
 					}}
 				/>
 			</Backdrop>
