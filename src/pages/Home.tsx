@@ -14,13 +14,14 @@ import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.red
 import { Pagination } from '../components/RenderPagination';
 import pokebola from '../assets/pokebola.gif';
 import pokemon from '../assets/pokemon.png';
+import wallpaper from "../assets/wallpaper.png"
 
 const style = {
 	width: '100%',
 	maxWidth: 300,
 	alignSelf: 'center',
 	marginBlock: 3,
-	animation: 'pulse 1.3s infinite', 
+	animation: 'pulse 1.3s infinite',
 	'@keyframes pulse': {
 		'0%': { transform: 'scale(1)' },
 		'50%': { transform: 'scale(1.3)' },
@@ -38,6 +39,7 @@ export const Home = () => {
 		dispatch(fetchAllPokemons());
 	}, [dispatch]);
 
+	// Tela de carregamento
 	if (status === 'loading') {
 		return (
 			<Backdrop
@@ -61,10 +63,13 @@ export const Home = () => {
 			</Backdrop>
 		);
 	}
+
+	// Função para atualizar o termo de pesquisa
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setSearchTerm(event.target.value));
 	};
 
+	// Tratamento de erro
 	if (status === 'failed') {
 		return <p>Erro: {error}</p>;
 	}
@@ -75,13 +80,21 @@ export const Home = () => {
 				display: 'flex',
 				flexDirection: 'column',
 				minHeight: '100vh',
+				height: 'auto', 
+				backgroundImage: `url(${wallpaper})`, 
+				backgroundSize: 'cover',
+				backgroundPosition: 'start', 
+				backgroundRepeat: 'no-repeat',
 			}}>
 			<Grid2 container>
 				<Grid2
 					size={12}
-					sx={{ display: 'flex', flexDirection: 'column' }}>
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+					}}>
 					<Box
-						component="img"
+						component='img'
 						src={pokemon}
 						alt='pokemon'
 						sx={style}
