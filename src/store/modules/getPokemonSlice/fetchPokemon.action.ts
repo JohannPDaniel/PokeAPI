@@ -7,7 +7,7 @@ export const fetchAllPokemons = createAsyncThunk(
 	'pokemon/fetchAllPokemons',
 	async (_, { rejectWithValue }) => {
 		try {
-			let nextUrl: string | null = '/pokemon?offset=0&limit=20';
+			let nextUrl: string | null = '/pokemon?offset=0&limit=100';
 			const allPokemonDetails: PokemonDetailsTypes[] = [];
 
 			while (nextUrl) {

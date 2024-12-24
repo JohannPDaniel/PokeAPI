@@ -1,4 +1,5 @@
 import {
+	Backdrop,
 	Box,
 	Grid2,
 	List,
@@ -11,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '../store/hook';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
 import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
 import { Pagination } from '../components/RenderPagination';
-import pokebola from "../assets/pokebola.gif"
+import pokebola from '../assets/pokebola.gif';
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
@@ -23,26 +24,30 @@ export const Home = () => {
 		dispatch(fetchAllPokemons());
 	}, [dispatch]);
 
-	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(setSearchTerm(event.target.value));
-	};
-
 	if (status === 'loading') {
 		return (
-			<Box
+			<Backdrop
+				open={status === 'loading'}
 				sx={{
+					backgroundColor: 'rgba(255, 255, 0, 0.5)',
+					backdropFilter: 'blur(8px)',
 					display: 'flex',
-					alignItems: 'center',
 					justifyContent: 'center',
-					height: '100vh',
+					alignItems: 'center',
 				}}>
 				<img
 					src={pokebola}
 					alt='Pokebola'
+					style={{
+						clipPath: 'circle(50%)',
+					}}
 				/>
-			</Box>
+			</Backdrop>
 		);
 	}
+	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		dispatch(setSearchTerm(event.target.value));
+	};
 
 	if (status === 'failed') {
 		return <p>Erro: {error}</p>;
@@ -53,12 +58,10 @@ export const Home = () => {
 			sx={{
 				display: 'flex',
 				flexDirection: 'column',
-				minHeight: '100vh', 
+				minHeight: '100vh',
 			}}>
 			<Grid2 container>
-				<Grid2
-					size={12}
-					>
+				<Grid2 size={12}>
 					<h1>Lista de Pokémons</h1>
 					<Box
 						sx={{
@@ -93,14 +96,13 @@ export const Home = () => {
 					</List>
 				</Grid2>
 			</Grid2>
-			{/* Posição da paginação */}
+
 			<Box
 				sx={{
-					marginTop: 'auto', // Empurra a paginação para o final
+					marginTop: 'auto',
 					display: 'flex',
 					justifyContent: 'center',
-					padding: '20px', // Espaçamento para não encostar no rodapé
-					background: '#f9f9f9',
+					padding: '20px',
 				}}>
 				<Pagination />
 			</Box>

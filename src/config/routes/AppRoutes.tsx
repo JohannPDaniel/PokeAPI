@@ -1,13 +1,12 @@
-// instale o React-Router-Dom com o comando: npm install react-router-dom
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Home } from "../../pages/Home";
 import { PokemonDetails } from "../../pages/PokemonDetails";
+import { DefaultLayout } from "../layout/DefaultLayout";
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Home />,
+		element: <DefaultLayout children={<Home />} />,
 	},
 	{
 		path: '/pokemon/:id',
