@@ -112,12 +112,12 @@ export const SlideshowLeft = () => {
 
 const styles = {
 	container: {
-		height: '100%', // Altura dinâmica com base no conteúdo
-		width: '100%', // Largura ocupando todo o espaço disponível
+		height: '100%',
+		width: '100%', 
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'center', // Conteúdo começa do topo
+		justifyContent: 'center', 
 		margin: '0',
 		padding: '0',
 	},

@@ -64,12 +64,10 @@ export const Home = () => {
 		);
 	}
 
-	// Função para atualizar o termo de pesquisa
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setSearchTerm(event.target.value));
 	};
 
-	// Tratamento de erro
 	if (status === 'failed') {
 		return <p>Erro: {error}</p>;
 	}
@@ -80,10 +78,10 @@ export const Home = () => {
 				display: 'flex',
 				flexDirection: 'column',
 				minHeight: '100vh',
-				height: 'auto', 
-				backgroundImage: `url(${wallpaper})`, 
+				height: 'auto',
+				backgroundImage: `url(${wallpaper})`,
 				backgroundSize: 'cover',
-				backgroundPosition: 'start', 
+				backgroundPosition: 'start',
 				backgroundRepeat: 'no-repeat',
 			}}>
 			<Grid2 container>

@@ -20,6 +20,7 @@ export const Pagination = () => {
 					borderRadius: 5,
 					display: 'flex',
 					justifyContent: 'center',
+					filter: 'opacity(100%)',
 				}}>
 				<RenderPagination
 					handlePageChange={handlePageChange}

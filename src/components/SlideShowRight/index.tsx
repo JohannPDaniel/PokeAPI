@@ -3,16 +3,16 @@ import { useState, useEffect } from 'react';
 
 const images = [
 	{
-		src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png',
-		caption: 'Charizard',
+		src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png',
+		caption: 'Bulbasaur',
 	},
 	{
-		src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
-		caption: 'Pikachu',
+		src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png',
+		caption: 'Squirtle',
 	},
 	{
-		src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png',
-		caption: 'Mewtwo',
+		src: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/38.png',
+		caption: 'Ninetales',
 	},
 ];
 
@@ -32,23 +32,23 @@ export const SlideshowRight = () => {
 
 	const getBackgroundColor = (caption: string) => {
 		switch (caption) {
-			case 'Charizard':
+			case 'Bulbasaur':
 				return {
-					background: '#eb4242',
-					nome: '#b51212',
-					default: '#e66565',
+					background: '#0e9417',
+					nome: '#201a8d',
+					default: '#65e674',
 				};
-			case 'Pikachu':
+			case 'Squirtle':
 				return {
-					background: '#ffd700',
-					nome: 'red',
-					default: 'red',
+					background: '#0015ff',
+					nome: '#dbed3d',
+					default: '#57b2e0',
 				};
-			case 'Mewtwo':
+			case 'Ninetales':
 				return {
-					background: '#9b30ff',
-					nome: '#5f0aae',
-					default: '#a464df',
+					background: '#fffc30',
+					nome: '#d36a44',
+					default: '#e5fa89',
 				};
 			default:
 				return {
