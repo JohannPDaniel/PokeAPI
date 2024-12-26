@@ -14,7 +14,8 @@ import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.red
 import { Pagination } from '../components/RenderPagination';
 import pokebola from '../assets/pokebola.gif';
 import pokemon from '../assets/pokemon.png';
-import wallpaper from "../assets/wallpaper.png"
+import wallpaper from '../assets/wallpaper.png';
+import { CardPokemon } from '../components/CardPokemon';
 
 const style = {
 	width: '100%',
@@ -84,7 +85,9 @@ export const Home = () => {
 				backgroundPosition: 'start',
 				backgroundRepeat: 'no-repeat',
 			}}>
-			<Grid2 container>
+			<Grid2
+				container
+				spacing={2}>
 				<Grid2
 					size={12}
 					sx={{
@@ -112,7 +115,26 @@ export const Home = () => {
 							}}
 						/>
 					</Box>
-					<List
+					<Grid2
+						container
+						mx={2}
+						spacing={2}>
+						{/* Define o tamanho dos cartões em diferentes breakpoints */}
+						{Array.from({ length: 10 }).map((_, index) => (
+							<Grid2
+								key={index} // Adicionado para evitar erros de chave
+								size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 3 }}
+							>
+								<CardPokemon
+									description='descrição'
+									image=''
+									name='Nome'
+								/>
+							</Grid2>
+						))}
+					</Grid2>
+
+					{/* <List
 						sx={{
 							display: 'flex',
 							flexDirection: 'column',
@@ -126,7 +148,7 @@ export const Home = () => {
 								/>
 							</ListItem>
 						))}
-					</List>
+					</List> */}
 				</Grid2>
 			</Grid2>
 
