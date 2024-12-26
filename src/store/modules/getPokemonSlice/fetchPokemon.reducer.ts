@@ -23,7 +23,7 @@ const initialState: PokemonState = {
 	pagination: {
 		totalPages: 0,
 		currentPage: 1,
-		itemsPerPage: 10,
+		itemsPerPage: 6,
 	},
 	searchTerm: '',
 	status: 'idle',

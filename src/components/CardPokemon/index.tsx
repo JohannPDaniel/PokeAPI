@@ -16,19 +16,25 @@ interface CardPokemonProps {
 
 export function CardPokemon({ name, image, description }: CardPokemonProps) {
 	return (
-		<Card>
+		<Card
+			sx={{
+				width: '100%',
+				height: "100%",
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+			}}>
 			<CardActionArea>
 				<CardMedia
 					component='img'
-					height='140'
+					height='220'
 					image={image}
 					alt={name}
 				/>
-				<CardContent>
+				<CardContent >
 					<Typography
 						gutterBottom
-						variant='h5'
-						component='div'>
+						variant='h6'>
 						{name}
 					</Typography>
 					<Typography
@@ -38,7 +44,10 @@ export function CardPokemon({ name, image, description }: CardPokemonProps) {
 					</Typography>
 				</CardContent>
 			</CardActionArea>
-			<CardActions>
+			<CardActions
+				sx={{
+					maxHeight: 50,
+				}}>
 				<Button
 					size='small'
 					color='primary'>

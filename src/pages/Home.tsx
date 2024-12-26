@@ -89,6 +89,7 @@ export const Home = () => {
 								size={12}
 								sx={{
 									width: '100%',
+									padding: 2,
 									display: 'flex',
 									justifyContent: 'center',
 								}}>
@@ -103,7 +104,11 @@ export const Home = () => {
 						<Grid2 container>
 							<Grid2
 								size={{ xs: 12 }}
-								sx={{ display: 'flex', mx: { xs: 7, sm: 17, md: 5, lg: 15 }, my: { xs: 2 } }}>
+								sx={{
+									display: 'flex',
+									mx: { xs: 5, sm: 17, md: 3, lg: 18 },
+									my: { xs: 2 },
+								}}>
 								<TextField
 									fullWidth
 									type='text'
@@ -121,51 +126,18 @@ export const Home = () => {
 							sx={{
 								display: 'flex',
 								justifyContent: 'center',
-								padding: { xs: 5, sm: 8, md: 4, lg: 5 },
+								padding: { xs: 2, sm: 8, md: 4, lg: 2 },
 							}}
 							spacing={2}>
-							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
+							{currentPagePokemons.map((pokemon) => (
+								<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
+									<CardPokemon
+										description='descrição'
+										image={pokemon.sprites.other["official-artwork"].front_default}
+										name={pokemon.name}
+									/>
+								</Grid2>
+							))}
 						</Grid2>
 					</Grid2>
 				</Grid2>
