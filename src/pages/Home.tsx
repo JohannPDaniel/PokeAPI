@@ -77,25 +77,33 @@ export const Home = () => {
 					backgroundPosition: 'bottom',
 					backgroundRepeat: 'no-repeat',
 				}}>
-				<Grid2
-					container
-					spacing={2}>
+				<Grid2 container>
 					<Grid2
 						size={12}
 						sx={{
 							display: 'flex',
 							flexDirection: 'column',
 						}}>
-						<Box
-							component='img'
-							src={pokemon}
-							alt='pokemon'
-							sx={style}
-						/>
+						<Grid2 container>
+							<Grid2
+								size={12}
+								sx={{
+									width: '100%',
+									display: 'flex',
+									justifyContent: 'center',
+								}}>
+								<Box
+									component='img'
+									src={pokemon}
+									alt='pokemon'
+									sx={style}
+								/>
+							</Grid2>
+						</Grid2>
 						<Grid2 container>
 							<Grid2
 								size={{ xs: 12 }}
-								sx={{ display: 'flex', mx: { xs: 5 }, my: { xs: 3 } }}>
+								sx={{ display: 'flex', mx: { xs: 7, sm: 17, md: 5, lg: 15 }, my: { xs: 2 } }}>
 								<TextField
 									fullWidth
 									type='text'
@@ -110,72 +118,48 @@ export const Home = () => {
 						</Grid2>
 						<Grid2
 							container
-							sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+								padding: { xs: 5, sm: 8, md: 4, lg: 5 },
+							}}
 							spacing={2}>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
+							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 								<CardPokemon
 									description='descrição'
 									image=''
 									name='Nome'
 								/>
 							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
+							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 								<CardPokemon
 									description='descrição'
 									image=''
 									name='Nome'
 								/>
 							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
+							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 								<CardPokemon
 									description='descrição'
 									image=''
 									name='Nome'
 								/>
 							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
+							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 								<CardPokemon
 									description='descrição'
 									image=''
 									name='Nome'
 								/>
 							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
+							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 								<CardPokemon
 									description='descrição'
 									image=''
 									name='Nome'
 								/>
 							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
-								<CardPokemon
-									description='descrição'
-									image=''
-									name='Nome'
-								/>
-							</Grid2>
-							<Grid2 size={{ xs: 10, sm: 6, md: 4, lg: 3, xl: 3 }}>
+							<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 								<CardPokemon
 									description='descrição'
 									image=''
@@ -188,7 +172,7 @@ export const Home = () => {
 				<Grid2
 					size={12}
 					sx={{
-						pb: { xs: 16, sm: 28, md: 22, lg: 30},
+						pb: { xs: 16, sm: 28, md: 22, lg: 30 },
 						pt: 6,
 						display: 'flex',
 						alignItems: 'center',

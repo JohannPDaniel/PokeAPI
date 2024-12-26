@@ -12,7 +12,7 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 			<Grid2 size={12}>
 				<Grid2 container>
 					<GridSizeLeft />
-					<Grid2 size={{ xs: 12, sm: 12, md: 7 }}>{children}</Grid2>
+					<Grid2 size={{ xs: 12, sm: 12, md: 6 }}>{children}</Grid2>
 					<GridSizeRight />
 				</Grid2>
 			</Grid2>
