@@ -19,7 +19,6 @@ export const RenderPagination = ({
 }: RenderPaginationProps) => {
 	const { currentPage, totalPages } = pagination;
 
-	// Hook do MUI para identificar breakpoints
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm')); 
 
