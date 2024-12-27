@@ -6,16 +6,19 @@ import {
 	Typography,
 	CardActions,
 	Button,
+	Box,
 } from '@mui/material';
 
 interface CardPokemonProps {
 	id: number;
 	name: string;
 	image: string;
-	description: string;
+	weight: number;
 }
 
-export function CardPokemon({ id, name, image, description }: CardPokemonProps) {
+export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
+	const titleHeight = name.length > 30 ? '100px' : 'auto';
+
 	return (
 		<Card
 			sx={{
@@ -25,42 +28,58 @@ export function CardPokemon({ id, name, image, description }: CardPokemonProps) 
 				flexDirection: 'column',
 				justifyContent: 'space-between',
 			}}>
-			<CardActions
-				sx={{
-					maxHeight: 50,
-					px: 2
-				}}>
-				<Typography>Nº 000{id}</Typography>
-			</CardActions>
-
 			<CardActionArea>
 				<CardMedia
 					component='img'
-					height='220'
+					sx={{
+						height: '180px',
+						objectFit: 'contain',
+					}}
 					image={image}
 					alt={name}
 				/>
-				<CardContent>
+				<CardContent
+					sx={{
+						display: 'flex',
+						flexDirection: 'column',
+					}}>
 					<Typography
-						gutterBottom
-						variant='h6'>
+						variant='caption'
+						textAlign='center'>
+						Nº 000{id}
+					</Typography>
+					<Typography
+						variant='h5'
+						sx={{
+							textAlign: 'center',
+							height: titleHeight,
+							overflow: 'hidden', 
+							textOverflow: 'ellipsis', 
+							whiteSpace: 'nowrap', 
+						}}>
 						{name}
 					</Typography>
 					<Typography
 						variant='body2'
-						sx={{ color: 'text.secondary' }}>
-						{description}
+						sx={{
+							color: 'text.secondary',
+							textAlign: 'center',
+						}}>
+						Peso: {weight.toFixed(2)} kg
 					</Typography>
 				</CardContent>
 			</CardActionArea>
 			<CardActions
 				sx={{
-					maxHeight: 50,
+					display: 'flex',
+					justifyContent: 'center',
 				}}>
 				<Button
 					size='small'
-					color='primary'>
-					Share
+					variant='contained'
+					color='primary'
+					sx={{ width: '100%' }}>
+					Veja mais
 				</Button>
 			</CardActions>
 		</Card>

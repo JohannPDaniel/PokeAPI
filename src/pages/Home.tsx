@@ -134,7 +134,7 @@ export const Home = () => {
 									<CardPokemon
 										id={pokemon.id}
 										name={pokemon.name}
-										description='descrição'
+										weight={pokemon.weight}
 										image={pokemon.sprites.other["official-artwork"].front_default}
 									/>
 								</Grid2>
@@ -157,20 +157,3 @@ export const Home = () => {
 		</Grid2>
 	);
 };
-{
-	/* <List
-sx={{
-	display: 'flex',
-	flexDirection: 'column',
-	flex: '1 1 auto',
-}}>
-{currentPagePokemons.map((pokemon) => (
-	<ListItem key={pokemon.id}>
-		<ListItemText
-			primary={`${pokemon.name}`}
-			secondary={`Altura: ${pokemon.height}, Peso: ${pokemon.weight}, Experiência: ${pokemon.base_experience}`}
-		/>
-	</ListItem>
-))}
-</List> */
-}
