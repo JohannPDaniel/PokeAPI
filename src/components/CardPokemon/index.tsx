@@ -27,6 +27,8 @@ export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'space-between',
+				backgroundColor: 'transparent',
+				boxShadow: 'none',
 			}}>
 			<CardActionArea>
 				<CardMedia
@@ -53,9 +55,9 @@ export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
 						sx={{
 							textAlign: 'center',
 							height: titleHeight,
-							overflow: 'hidden', 
-							textOverflow: 'ellipsis', 
-							whiteSpace: 'nowrap', 
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+							whiteSpace: 'nowrap',
 						}}>
 						{name}
 					</Typography>
