@@ -132,9 +132,10 @@ export const Home = () => {
 							{currentPagePokemons.map((pokemon) => (
 								<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 									<CardPokemon
+										id={pokemon.id}
+										name={pokemon.name}
 										description='descrição'
 										image={pokemon.sprites.other["official-artwork"].front_default}
-										name={pokemon.name}
 									/>
 								</Grid2>
 							))}

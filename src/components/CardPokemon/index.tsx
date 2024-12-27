@@ -9,21 +9,30 @@ import {
 } from '@mui/material';
 
 interface CardPokemonProps {
+	id: number;
 	name: string;
 	image: string;
 	description: string;
 }
 
-export function CardPokemon({ name, image, description }: CardPokemonProps) {
+export function CardPokemon({ id, name, image, description }: CardPokemonProps) {
 	return (
 		<Card
 			sx={{
 				width: '100%',
-				height: "100%",
+				height: '100%',
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'space-between',
 			}}>
+			<CardActions
+				sx={{
+					maxHeight: 50,
+					px: 2
+				}}>
+				<Typography>Nº 000{id}</Typography>
+			</CardActions>
+
 			<CardActionArea>
 				<CardMedia
 					component='img'
@@ -31,7 +40,7 @@ export function CardPokemon({ name, image, description }: CardPokemonProps) {
 					image={image}
 					alt={name}
 				/>
-				<CardContent >
+				<CardContent>
 					<Typography
 						gutterBottom
 						variant='h6'>
