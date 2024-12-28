@@ -14,11 +14,7 @@ const styles: Record<string, CSSObject> = {
 
 	a: {
 		textDecoration: 'none',
-		color: 'black',
-
-		'&:hover': {
-			textDecoration: 'underline',
-		},
+		color: "white"
 	},
 };
 

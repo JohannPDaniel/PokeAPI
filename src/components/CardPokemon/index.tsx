@@ -8,6 +8,7 @@ import {
 	Button,
 } from '@mui/material';
 import { Type } from '../../types/pokemonDetails.types';
+import { Link } from "react-router-dom";
 
 interface CardPokemonProps {
 	id: number;
@@ -42,7 +43,7 @@ export function CardPokemon({
 						fighting: '#C22E28',
 						flying: '#A98FF3',
 						poison: '#A33EA1',
-						ground: '#E2BF65',
+						ground: '#8e7f51',
 						rock: '#B6A136',
 						bug: '#A6B91A',
 						ghost: '#735797',
@@ -122,7 +123,7 @@ export function CardPokemon({
 					variant='contained'
 					color='primary'
 					sx={{ width: '100%' }}>
-					Veja mais
+					<Link to='/pokemon'> Veja mais</Link>
 				</Button>
 			</CardActions>
 		</Card>

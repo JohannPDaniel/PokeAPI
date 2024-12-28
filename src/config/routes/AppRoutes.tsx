@@ -9,7 +9,7 @@ const router = createBrowserRouter([
 		element: <DefaultLayout children={<Home />} />,
 	},
 	{
-		path: '/pokemon/:id',
+		path: '/pokemon',
 		element: <PokemonDetails />,
 	},
 ]);
