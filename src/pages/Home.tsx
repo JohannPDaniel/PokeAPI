@@ -126,16 +126,19 @@ export const Home = () => {
 							sx={{
 								display: 'flex',
 								justifyContent: 'center',
-								padding: { xs: 2, sm: 8, md: 4, lg: 2 },
+								padding: { xs: 6, sm: 8, md: 4, lg: 2 },
 							}}
-							spacing={2}>
+							spacing={4}>
 							{currentPagePokemons.map((pokemon) => (
 								<Grid2 size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 									<CardPokemon
+										types={pokemon.types}
 										id={pokemon.id}
 										name={pokemon.name}
 										weight={pokemon.weight}
-										image={pokemon.sprites.other["official-artwork"].front_default}
+										image={
+											pokemon.sprites.other['official-artwork'].front_default
+										}
 									/>
 								</Grid2>
 							))}

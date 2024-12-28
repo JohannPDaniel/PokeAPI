@@ -32,13 +32,13 @@ export interface Stat2 {
 }
 
 export interface Type {
-	slot: number;
+	slot?: number;
 	type: Type2;
 }
 
 export interface Type2 {
 	name: string;
-	url: string;
+	url?: string;
 }
 
 export interface Species {

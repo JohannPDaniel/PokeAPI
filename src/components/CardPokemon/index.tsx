@@ -6,17 +6,24 @@ import {
 	Typography,
 	CardActions,
 	Button,
-	Box,
 } from '@mui/material';
+import { Type } from '../../types/pokemonDetails.types';
 
 interface CardPokemonProps {
 	id: number;
 	name: string;
 	image: string;
 	weight: number;
+	types: Type[];
 }
 
-export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
+export function CardPokemon({
+	id,
+	name,
+	image,
+	weight,
+	types,
+}: CardPokemonProps) {
 	const titleHeight = name.length > 30 ? '100px' : 'auto';
 
 	return (
@@ -27,7 +34,42 @@ export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
 				display: 'flex',
 				flexDirection: 'column',
 				justifyContent: 'space-between',
-				backgroundColor: 'transparent',
+				background: (() => {
+					if (!types || types.length === 0) return '#f5f5f5';
+
+					const typeColors: { [key: string]: string } = {
+						normal: '#A8A77A',
+						fighting: '#C22E28',
+						flying: '#A98FF3',
+						poison: '#A33EA1',
+						ground: '#E2BF65',
+						rock: '#B6A136',
+						bug: '#A6B91A',
+						ghost: '#735797',
+						steel: '#B7B7CE',
+						fire: '#EE8130',
+						water: '#6390F0',
+						grass: '#7AC74C',
+						electric: '#F7D02C',
+						psychic: '#F95587',
+						ice: '#96D9D6',
+						dragon: '#6F35FC',
+						dark: '#0e0e0e',
+						fairy: '#D685AD',
+					};
+
+					const colors = types
+						.map((type) => typeColors[type.type.name] || '#f5f5f5')
+						.slice(0, 2);
+
+					if (colors.length === 1) {
+						return colors[0];
+					} else {
+						return `linear-gradient(122deg, ${colors[0]} 50%, ${colors[1]} 50%)`;
+					}
+				})(),
+				color: 'white',
+				backgroundSize: 'cover',
 				boxShadow: 'none',
 			}}>
 			<CardActionArea>
@@ -51,7 +93,7 @@ export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
 						Nº 000{id}
 					</Typography>
 					<Typography
-						variant='h5'
+						variant='h6'
 						sx={{
 							textAlign: 'center',
 							height: titleHeight,
@@ -64,7 +106,6 @@ export function CardPokemon({ id, name, image, weight }: CardPokemonProps) {
 					<Typography
 						variant='body2'
 						sx={{
-							color: 'text.secondary',
 							textAlign: 'center',
 						}}>
 						Peso: {weight.toFixed(2)} kg
