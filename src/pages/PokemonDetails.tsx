@@ -45,7 +45,7 @@ export const PokemonDetails = () => {
 				size={12}
 				sx={{
 					width: '100%',
-					minHeight: '100vh', 
+					minHeight: '100vh',
 					display: 'flex',
 					flexDirection: 'column',
 					justifyContent: 'space-between',
@@ -108,14 +108,12 @@ export const PokemonDetails = () => {
 						</Typography>
 					</Grid2>
 				</Grid2>
-				<Grid2
-					container
-					>
+				<Grid2 container>
 					<Grid2
 						size={12}
-						sx={ {
-							width: "100%",
-							height: "auto",
+						sx={{
+							width: '100%',
+							height: 'auto',
 							display: 'flex',
 							justifyContent: 'space-between',
 							position: 'relative',
@@ -128,9 +126,41 @@ export const PokemonDetails = () => {
 								width: '200px',
 							}}
 						/>
-						<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center"}}>
-							<Typography variant='h1'>Olá</Typography>
-						</Box>
+						<Grid2
+							container
+							sx={{ width: '100%' }}>
+							{/* Primeiro Grid - Vermelho */}
+							<Grid2 size={6}>
+								<Grid2
+									container
+									sx={{
+										height: '100%',
+										backgroundColor: '#eaeaea',
+										padding: 2,
+									}}>
+									<Grid2 size={12}>
+										<Box
+											sx={{
+												width: '100%',
+												height: '100%',
+												backgroundColor: 'white',
+												borderRadius: 2,
+												display: "flex",
+												alignItems: "center",
+												justifyContent: "center"
+											} }>
+											Foto do Pokemon
+											</Box>
+									</Grid2>
+								</Grid2>
+							</Grid2>
+
+							{/* Outros Grids */}
+							<Grid2 size={6}>ola</Grid2>
+							<Grid2 size={6}>ola</Grid2>
+							<Grid2 size={6}>ola</Grid2>
+						</Grid2>
+
 						<Box
 							component='img'
 							src={decoration1}
