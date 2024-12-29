@@ -1,9 +1,9 @@
 import { Box, Grid2, Typography, useMediaQuery, useTheme } from '@mui/material';
-import pokebolaGirando from '../assets/pokebolaGirando.gif';
 import { useEffect } from 'react';
-import { useAppSelector } from '../store/hook';
-import nextPage from '../assets/nextPage.png';
 import decoration1 from '../assets/decoration1.png';
+import nextPage from '../assets/nextPage.png';
+import pokebolaGirando from '../assets/pokebolaGirando.gif';
+import { useAppSelector } from '../store/hook';
 
 export const PokemonDetails = () => {
 	const theme = useTheme();
@@ -36,41 +36,41 @@ export const PokemonDetails = () => {
 			container
 			sx={{
 				width: '100%',
-				height: '100%',
+				minHeight: '100vh',
+				padding: 10,
+				overflow: 'hidden',
+				backgroundColor: '#000',
 			}}>
 			<Grid2
 				size={12}
 				sx={{
-					height: 'auto',
-					minHeight: '100vh',
-					backgroundColor: '#000',
+					width: '100%',
+					minHeight: '100vh', 
 					display: 'flex',
-					padding: 10,
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					backgroundColor: 'white',
+					borderRadius: 5,
 					overflow: 'hidden',
 				}}>
-				<Box
-					sx={{
-						width: '100%',
-						height: '100%',
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						backgroundColor: 'white',
-						borderRadius: 5,
-						position: 'relative',
-						overflow: 'hidden',
-					}}>
-					<Box sx={{width: "100%", display: "flex", gap: 0.5}}>
+				<Grid2 container>
+					<Grid2
+						size={12}
+						sx={{
+							display: 'flex',
+							gap: 0.5,
+							justifyContent: 'space-between',
+							alignItems: 'center',
+						}}>
 						<Box
 							component='img'
 							src={nextPage}
 							alt='Imagem invertida'
 							sx={{
-								width: '50%',
 								height: '100%',
+								width: '50%',
 								objectFit: 'cover',
 								transform: 'scaleX(-1)',
-								borderTopRightRadius: 10,
 								cursor: 'pointer',
 								pointerEvents: 'auto',
 								'&:hover': {
@@ -84,31 +84,41 @@ export const PokemonDetails = () => {
 							src={nextPage}
 							alt='Imagem normal'
 							sx={{
-								width: '50%',
 								height: '100%',
+								width: '50%',
 								objectFit: 'cover',
-								borderStartEndRadius: 10,
 								cursor: 'pointer',
 								pointerEvents: 'auto',
-
 								'&:hover': {
 									filter:
 										'grayscale(0) sepia(1) hue-rotate(190deg) saturate(1500%)',
 								},
 							}}
 						/>
-					</Box>
-					<Typography
-						variant='h3'
-						sx={{ position: 'absolute', top: 90 }}>
-						Venusaur Nº 0003
-					</Typography>
-					<Box
-						sx={{
+					</Grid2>
+				</Grid2>
+				<Grid2 container>
+					<Grid2
+						size={12}
+						sx={{ position: 'relative' }}>
+						<Typography
+							variant='h3'
+							sx={{ position: 'absolute', left: '35%', bottom: '0px' }}>
+							Venusaur Nº 0003
+						</Typography>
+					</Grid2>
+				</Grid2>
+				<Grid2
+					container
+					>
+					<Grid2
+						size={12}
+						sx={ {
+							width: "100%",
+							height: "auto",
 							display: 'flex',
 							justifyContent: 'space-between',
-							width: '100%',
-							height: '100%',
+							position: 'relative',
 						}}>
 						<Box
 							component='img'
@@ -118,7 +128,9 @@ export const PokemonDetails = () => {
 								width: '200px',
 							}}
 						/>
-
+						<Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center"}}>
+							<Typography variant='h1'>Olá</Typography>
+						</Box>
 						<Box
 							component='img'
 							src={decoration1}
@@ -127,20 +139,20 @@ export const PokemonDetails = () => {
 								width: '200px',
 							}}
 						/>
-					</Box>
-				</Box>
-				<img
-					src={pokebolaGirando}
-					alt='pokebola girando'
-					style={{
-						clipPath: 'circle(30%)',
-						width: imageSize,
-						position: 'fixed',
-						bottom: 0,
-						right: 0,
-					}}
-				/>
+					</Grid2>
+				</Grid2>
 			</Grid2>
+			<img
+				src={pokebolaGirando}
+				alt='pokebola girando'
+				style={{
+					clipPath: 'circle(30%)',
+					width: imageSize,
+					position: 'fixed',
+					bottom: 0,
+					right: 0,
+				}}
+			/>
 		</Grid2>
 	);
 };
