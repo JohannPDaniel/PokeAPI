@@ -100,8 +100,7 @@ export const Home = () => {
 							size={{ xs: 12 }}
 							sx={{
 								display: 'flex',
-								mx: { xs: 5, sm: 17, md: 3, lg: 18 },
-								my: { xs: 2 },
+								px: 12
 							}}>
 							<TextField
 								fullWidth
