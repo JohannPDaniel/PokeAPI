@@ -8,7 +8,7 @@ import {
 	Button,
 } from '@mui/material';
 import { Type } from '../../types/pokemonDetails.types';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface CardPokemonProps {
 	id: number;
@@ -26,6 +26,7 @@ export function CardPokemon({
 	types,
 }: CardPokemonProps) {
 	const titleHeight = name.length > 30 ? '100px' : 'auto';
+	const navigate = useNavigate()
 
 	return (
 		<Card
@@ -122,8 +123,19 @@ export function CardPokemon({
 					size='small'
 					variant='contained'
 					color='primary'
+					onClick={() =>
+						navigate(`/pokemon/${id}`, {
+							state: {
+								id,
+								name,
+								image,
+								weight,
+								types,
+							},
+						})
+					}
 					sx={{ width: '100%' }}>
-					<Link to='/pokemon'> Veja mais</Link>
+					Veja mais
 				</Button>
 			</CardActions>
 		</Card>

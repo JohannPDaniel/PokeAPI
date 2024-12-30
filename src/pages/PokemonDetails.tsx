@@ -1,17 +1,51 @@
 import { Box, Grid2, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../store/hook';
 import decoration1 from '../assets/decoration1.png';
 import nextPage from '../assets/nextPage.png';
 import pokebolaGirando from '../assets/pokebolaGirando.gif';
-import { useAppSelector } from '../store/hook';
+import { useEffect } from 'react';
 
+const typeWeaknesses: { [key: string]: string[] } = {
+	grass: ['fire', 'ice', 'poison', 'flying', 'bug'],
+	poison: ['ground', 'psychic'],
+	fire: ['water', 'rock', 'ground'],
+	water: ['electric', 'grass'],
+	electric: ['ground'],
+	flying: ['electric', 'ice', 'rock'],
+	ground: ['water', 'grass', 'ice'],
+	rock: ['water', 'grass', 'fighting', 'ground', 'steel'],
+	psychic: ['bug', 'ghost', 'dark'],
+	ice: ['fire', 'fighting', 'rock', 'steel'],
+	dragon: ['ice', 'dragon', 'fairy'],
+	dark: ['fighting', 'bug', 'fairy'],
+	fairy: ['poison', 'steel'],
+	bug: ['fire', 'flying', 'rock'],
+	steel: ['fire', 'fighting', 'ground'],
+	ghost: ['ghost', 'dark'],
+	normal: ['fighting'],
+};
 export const PokemonDetails = () => {
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 	const isMediumScreen = useMediaQuery(theme.breakpoints.between('sm', 'lg'));
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
-	const { currentPagePokemons, searchTerm, status, error } = useAppSelector(
-		(state) => state.pokemon
+
+	const { id } = useParams();
+	const pokemon = useAppSelector((state) =>
+		state.pokemon.allPokemons.find((poke) => poke.id === parseInt(id || '', 10))
+	);
+
+	if (!pokemon) {
+		return <Typography variant='h6'>Pokémon não encontrado.</Typography>;
+	}
+
+	const weaknesses = Array.from(
+		new Set(
+			pokemon.types
+				.flatMap((type) => typeWeaknesses[type.type.name] || [])
+				.filter(Boolean)
+		)
 	);
 
 	const imageSize = (() => {
@@ -28,7 +62,7 @@ export const PokemonDetails = () => {
 	})();
 
 	useEffect(() => {
-		document.title = 'Detalhes do pokemon';
+		document.title = `${pokemon.name} | Pokedex`;
 	}, []);
 
 	return (
@@ -100,11 +134,21 @@ export const PokemonDetails = () => {
 				<Grid2 container>
 					<Grid2
 						size={12}
-						sx={{ position: 'relative' }}>
+						sx={{
+							display: 'flex',
+							flexDirection: 'column',
+							alignItems: 'center',
+							position: 'relative',
+						}}>
 						<Typography
 							variant='h3'
-							sx={{ position: 'absolute', left: '35%', bottom: '0px' }}>
-							Venusaur Nº 0003
+							sx={{
+								position: 'absolute',
+								bottom: '0',
+								textAlign: 'center',
+								color: 'black',
+							}}>
+							{pokemon.name} Nº 000{pokemon.id}
 						</Typography>
 					</Grid2>
 				</Grid2>
@@ -138,20 +182,18 @@ export const PokemonDetails = () => {
 											display: 'flex',
 											justifyContent: 'center',
 											alignItems: 'center',
-											padding: 3,
 										}}>
 										<Box
 											sx={{
 												width: '100%',
 												height: '100%',
-												backgroundColor: '#eaeaea',
+												backgroundImage: `url(${pokemon.sprites.other['official-artwork'].front_default})`,
+												backgroundSize: 'contain',
+												backgroundPosition: 'center',
+												backgroundRepeat: 'no-repeat',
+												overflow: 'hidden',
 												borderRadius: 2,
-												display: 'flex',
-												justifyContent: 'center',
-												alignItems: 'center',
-											}}>
-											Foto do Pokemon
-										</Box>
+											}}></Box>
 									</Grid2>
 									{/* Caixa 2 */}
 									<Grid2
@@ -172,14 +214,14 @@ export const PokemonDetails = () => {
 												borderRadius: 2,
 											}}>
 											<Grid2
-												size={7}
+												size={9}
 												sx={{
 													display: 'flex',
 													justifyContent: 'space-between',
 												}}>
 												<Box>
 													<Typography>Height</Typography>
-													<Typography>0.7 m</Typography>
+													<Typography>{pokemon.height} m</Typography>
 												</Box>
 												<Box>
 													<Typography>Category</Typography>
@@ -187,29 +229,24 @@ export const PokemonDetails = () => {
 												</Box>
 											</Grid2>
 											<Grid2
-												size={7}
+												size={9}
 												sx={{
 													display: 'flex',
 													justifyContent: 'space-between',
 												}}>
 												<Box>
 													<Typography>Weight</Typography>
-													<Typography>6.9 kg</Typography>
+													<Typography>
+														{(Number(pokemon.weight) / 10).toFixed(2)} kg
+													</Typography>
 												</Box>
 												<Box>
 													<Typography>Abilities</Typography>
-													<Typography>Overgrow</Typography>
-												</Box>
-											</Grid2>
-											<Grid2
-												size={12}
-												sx={{
-													display: 'flex',
-													justifyContent: 'flex-start',
-												}}>
-												<Box>
-													<Typography>Gender</Typography>
-													<Typography>Male</Typography>
+													<Typography>
+														{pokemon.abilities
+															.map((ability) => ability.ability.name)
+															.join(', ')}
+													</Typography>
 												</Box>
 											</Grid2>
 										</Grid2>
@@ -235,14 +272,7 @@ export const PokemonDetails = () => {
 											<Grid2 size={12}>
 												<Typography variant='h6'>Stats</Typography>
 											</Grid2>
-											{[
-												{ label: 'HP', value: 50 },
-												{ label: 'Attack', value: 70 },
-												{ label: 'Defense', value: 60 },
-												{ label: 'Special Attack', value: 80 },
-												{ label: 'Special Defense', value: 75 },
-												{ label: 'Speed', value: 90 },
-											].map((stat, index) => (
+											{pokemon.stats.map((stat, index) => (
 												<Grid2
 													key={index}
 													size={12}
@@ -252,12 +282,12 @@ export const PokemonDetails = () => {
 														gap: 1,
 													}}>
 													<Typography sx={{ width: '100px' }}>
-														{stat.label}
+														{stat.stat.name}
 													</Typography>
 													<Box
 														sx={{
 															flexGrow: 1,
-															height: '15px',
+															height: '20px',
 															backgroundColor: '#fff',
 															border: '1px solid #ccc',
 															borderRadius: '5px',
@@ -267,14 +297,14 @@ export const PokemonDetails = () => {
 														<Box
 															sx={{
 																height: '100%',
-																width: `${stat.value}%`,
+																width: `${(stat.base_stat / 200) * 100}%`, // Ajusta o tamanho proporcional à largura da barra branca
 																backgroundColor: '#30a7d7',
 															}}
 														/>
 													</Box>
 													<Typography
 														sx={{ width: '50px', textAlign: 'right' }}>
-														{stat.value}
+														{stat.base_stat}
 													</Typography>
 												</Grid2>
 											))}
@@ -298,6 +328,7 @@ export const PokemonDetails = () => {
 												padding: 3,
 												borderRadius: 2,
 											}}>
+											{/* Tipos */}
 											<Grid2
 												size={12}
 												sx={{
@@ -305,39 +336,31 @@ export const PokemonDetails = () => {
 													flexDirection: 'column',
 												}}>
 												<Box sx={{ pb: 2 }}>
-													<Typography>Type</Typography>
+													<Typography variant='h6'>Type</Typography>
 												</Box>
 												<Grid2
 													container
 													spacing={2}>
-													<Grid2
-														size={6}
-														sx={{
-															height: 'auto',
-															display: 'flex',
-															justifyContent: 'center',
-															backgroundColor: '#9bcc50',
-															px: 7,
-															py: 0.5,
-															borderRadius: 1,
-														}}>
-														Grass
-													</Grid2>
-													<Grid2
-														size={6}
-														sx={{
-															height: 'auto',
-															display: 'flex',
-															justifyContent: 'center',
-															backgroundColor: '#b97fc9',
-															px: 7,
-															py: 0.5,
-															borderRadius: 1,
-														}}>
-														Poison
-													</Grid2>
+													{pokemon.types.map((type, index) => (
+														<Grid2
+															key={index}
+															size={6}
+															sx={{
+																height: 'auto',
+																display: 'flex',
+																justifyContent: 'center',
+																backgroundColor: '#9bcc50',
+																px: 7,
+																py: 0.5,
+																borderRadius: 1,
+															}}>
+															{type.type.name}
+														</Grid2>
+													))}
 												</Grid2>
 											</Grid2>
+
+											{/* Weaknesses */}
 											<Grid2
 												size={12}
 												sx={{
@@ -345,79 +368,32 @@ export const PokemonDetails = () => {
 													flexDirection: 'column',
 												}}>
 												<Box sx={{ pb: 2 }}>
-													<Typography>Weaknesses</Typography>
+													<Typography variant='h6'>Weaknesses</Typography>
 												</Box>
 												<Grid2
 													container
-													spacing={1}>
-													<Grid2
-														size={6}
-														sx={{
-															height: 'auto',
-															display: 'flex',
-															justifyContent: 'center',
-															backgroundColor: '#fd7d24',
-															px: 7,
-															py: 0.5,
-															borderRadius: 1,
-															color: '#fff',
-														}}>
-														Fire
-													</Grid2>
-													<Grid2
-														size={6}
-														sx={{
-															height: 'auto',
-															display: 'flex',
-															justifyContent: 'center',
-															backgroundColor: '#51c4e7',
-															px: 7,
-															py: 0.5,
-															borderRadius: 1,
-														}}>
-														Ice
-													</Grid2>
-													<Grid2
-														size={6}
-														sx={{
-															height: 'auto',
-															display: 'flex',
-															justifyContent: 'center',
-															alignItems: 'center',
-															background:
-																'linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%)',
-															px: 7,
-															py: 0.5,
-															borderRadius: 1,
-														}}>
-														<Typography
+													spacing={2}>
+													{weaknesses.map((weakness, index) => (
+														<Grid2
+															key={index}
+															size={6}
 															sx={{
-																fontSize: '14px',
-																fontWeight: 'bold',
+																height: 'auto',
+																display: 'flex',
+																justifyContent: 'center',
+																backgroundColor: '#f66',
+																px: 7,
+																py: 0.5,
+																borderRadius: 1,
 																color: '#fff',
 															}}>
-															Flying
-														</Typography>
-													</Grid2>
-
-													<Grid2
-														size={6}
-														sx={{
-															height: 'auto',
-															display: 'flex',
-															justifyContent: 'center',
-															backgroundColor: '#f366b9',
-															px: 7,
-															py: 0.5,
-															borderRadius: 1,
-															color: '#fff',
-														}}>
-														Psychic
-													</Grid2>
+															{weakness}
+														</Grid2>
+													))}
 												</Grid2>
 											</Grid2>
 										</Grid2>
-									</Grid2>{' '}
+									</Grid2>
 								</Grid2>
 							</Grid2>
 						</Grid2>

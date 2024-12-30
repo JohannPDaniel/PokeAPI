@@ -123,7 +123,7 @@ export const Home = () => {
 							}}>
 							{currentPagePokemons.map((pokemon) => (
 								<Grid2
-									key={pokemon.id} // Adicionado key
+									key={pokemon.id} 
 									size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 									<CardPokemon
 										types={pokemon.types}
