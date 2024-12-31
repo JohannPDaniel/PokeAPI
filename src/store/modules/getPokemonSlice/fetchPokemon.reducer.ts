@@ -4,16 +4,16 @@ import { fetchAllPokemons } from './fetchPokemon.action';
 
 interface PokemonState {
 	allPokemons: PokemonDetailsTypes[];
+	filteredPokemons: PokemonDetailsTypes[];
 	searchTerm: string;
-	previousPageUrl: string | null; // Adicionada a propriedade
 	status: 'idle' | 'loading' | 'succeeded' | 'failed';
 	error: string | null;
 }
 
 const initialState: PokemonState = {
 	allPokemons: [],
+	filteredPokemons: [],
 	searchTerm: '',
-	previousPageUrl: null, 
 	status: 'idle',
 	error: null,
 };
@@ -24,9 +24,9 @@ const pokemonSlice = createSlice({
 	reducers: {
 		setSearchTerm(state, action: PayloadAction<string>) {
 			state.searchTerm = action.payload;
-		},
-		setPreviousPageUrl(state, action: PayloadAction<string | null>) {
-			state.previousPageUrl = action.payload; 
+			state.filteredPokemons = state.allPokemons.filter((pokemon) =>
+				pokemon.name.toLowerCase().includes(action.payload.toLowerCase())
+			);
 		},
 	},
 	extraReducers: (builder) => {
@@ -38,13 +38,14 @@ const pokemonSlice = createSlice({
 			.addCase(fetchAllPokemons.fulfilled, (state, action) => {
 				state.status = 'succeeded';
 				state.allPokemons = action.payload;
+				state.filteredPokemons = action.payload; // Inicializa com todos os Pokémon
 			})
 			.addCase(fetchAllPokemons.rejected, (state, action) => {
 				state.status = 'failed';
-				state.error = action.payload as string;
+				state.error = action.error.message || 'Erro ao carregar Pokémon';
 			});
 	},
 });
 
-export const { setSearchTerm, setPreviousPageUrl } = pokemonSlice.actions;
+export const { setSearchTerm } = pokemonSlice.actions;
 export const pokemonReducer = pokemonSlice.reducer;

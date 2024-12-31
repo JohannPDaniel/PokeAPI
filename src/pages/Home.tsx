@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
 import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
-import { setTotalPages } from '../store/modules/paginationSlice/paginationSlice.reducer';
 import { Pagination } from '../components/RenderPagination';
 import pokemons from '../assets/pokemons.gif';
 import pokemon from '../assets/pokemon.png';
@@ -32,21 +31,41 @@ export const Home = () => {
 		(state) => state.pagination
 	);
 
+	// Aplica o filtro ao conjunto completo de Pokémon
+	const filteredPokemonsList = searchTerm
+		? allPokemons.filter((pokemon) =>
+				pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+		  )
+		: allPokemons;
+
+	// Recalcula o total de páginas
+	const totalPages = Math.ceil(filteredPokemonsList.length / itemsPerPage);
+
+	// Corrige a página atual se ela ultrapassar o total de páginas
+	useEffect(() => {
+		if (currentPage > totalPages) {
+			dispatch({ type: 'pagination/setPage', payload: 1 });
+		}
+	}, [currentPage, totalPages, dispatch]);
+
+	// Determina os Pokémon exibidos na página atual
 	const startIndex = (currentPage - 1) * itemsPerPage;
-	const currentPagePokemons = allPokemons.slice(
+	const currentPagePokemons = filteredPokemonsList.slice(
 		startIndex,
 		startIndex + itemsPerPage
 	);
 
+	// Carrega todos os Pokémon na montagem do componente
 	useEffect(() => {
 		document.title = 'Página Inicial - Pokémon';
-		dispatch(fetchAllPokemons()).then(() => {
-			dispatch(setTotalPages(Math.ceil(allPokemons.length / itemsPerPage)));
-		});
-	}, [dispatch, allPokemons.length, itemsPerPage]);
+		if (allPokemons.length === 0) {
+			dispatch(fetchAllPokemons());
+		}
+	}, [dispatch, allPokemons.length]);
 
+	// Lida com a alteração de pesquisa
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(setSearchTerm(event.target.value));
+		dispatch(setSearchTerm(event.target.value)); // Atualiza o termo de busca no estado global
 	};
 
 	if (status === 'loading') {
@@ -133,21 +152,25 @@ export const Home = () => {
 								justifyContent: 'center',
 								padding: { xs: 6, sm: 8, md: 4, lg: 2 },
 							}}>
-							{currentPagePokemons.map((pokemon) => (
-								<Grid2
-									key={pokemon.id}
-									size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
-									<CardPokemon
-										types={pokemon.types}
-										id={pokemon.id}
-										name={pokemon.name}
-										weight={pokemon.weight}
-										image={
-											pokemon.sprites.other['official-artwork'].front_default
-										}
-									/>
-								</Grid2>
-							))}
+							{currentPagePokemons.length > 0 ? (
+								currentPagePokemons.map((pokemon) => (
+									<Grid2
+										key={pokemon.id}
+										size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
+										<CardPokemon
+											types={pokemon.types}
+											id={pokemon.id}
+											name={pokemon.name}
+											weight={pokemon.weight}
+											image={
+												pokemon.sprites.other['official-artwork'].front_default
+											}
+										/>
+									</Grid2>
+								))
+							) : (
+								<p>Nenhum Pokémon encontrado.</p>
+							)}
 						</Grid2>
 					</Grid2>
 				</Grid2>

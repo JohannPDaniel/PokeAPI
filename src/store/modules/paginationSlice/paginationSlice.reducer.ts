@@ -2,14 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface PaginationState {
 	currentPage: number;
-	itemsPerPage: number;
 	totalPages: number;
+	itemsPerPage: number;
 }
 
 const initialState: PaginationState = {
 	currentPage: 1,
-	itemsPerPage: 6,
-	totalPages: 0,
+	totalPages: 1,
+	itemsPerPage: 20,
 };
 
 const paginationSlice = createSlice({

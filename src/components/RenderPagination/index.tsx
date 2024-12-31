@@ -5,14 +5,28 @@ import { Grid2 } from '@mui/material';
 
 export const Pagination = () => {
 	const dispatch = useAppDispatch();
-	const { currentPage, totalPages, itemsPerPage } = useAppSelector(
-		(state) => state.pagination 
+	const { currentPage, itemsPerPage } = useAppSelector(
+		(state) => state.pagination
 	);
-	const { searchTerm } = useAppSelector((state) => state.pokemon);
+	const { searchTerm, filteredPokemons, allPokemons, status } = useAppSelector(
+		(state) => state.pokemon
+	);
+
+	const totalItems = searchTerm ? filteredPokemons.length : allPokemons.length;
+	const calculatedTotalPages = Math.ceil(totalItems / itemsPerPage);
 
 	const handlePageChange = (page: number) => {
-		dispatch(setPage(page)); 
+		dispatch(setPage(page));
 	};
+
+	// Renderiza o estado de carregamento ou erro, se necessário
+	if (status === 'loading') {
+		return <p>Carregando...</p>;
+	}
+
+	if (status === 'failed') {
+		return <p>Erro ao carregar dados</p>;
+	}
 
 	return (
 		<Grid2 container>
@@ -25,8 +39,12 @@ export const Pagination = () => {
 				}}>
 				<RenderPagination
 					handlePageChange={handlePageChange}
-					pagination={{ currentPage, totalPages, itemsPerPage }}
-					searchTerm={searchTerm} // Agora é passado corretamente
+					pagination={{
+						currentPage,
+						totalPages: calculatedTotalPages,
+						itemsPerPage,
+					}}
+					searchTerm={searchTerm}
 				/>
 			</Grid2>
 		</Grid2>
