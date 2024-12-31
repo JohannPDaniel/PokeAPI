@@ -1,14 +1,11 @@
 import {
-	Card,
-	CardActionArea,
-	CardMedia,
-	CardContent,
-	Typography,
-	CardActions,
 	Button,
+	Card, CardActions
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { Type } from '../../types/pokemonDetails.types';
-import { useNavigate } from "react-router-dom";
+import { getCardStyle } from './styleCard';
+import { ContentCard } from '../ContentCard';
 
 interface CardPokemonProps {
 	id: number;
@@ -25,95 +22,23 @@ export function CardPokemon({
 	weight,
 	types,
 }: CardPokemonProps) {
-	const titleHeight = name.length > 30 ? '100px' : 'auto';
-	const navigate = useNavigate()
+	const navigate = useNavigate();
+
+	// Calcular o estilo dinamicamente
+	const cardStyle = getCardStyle(types);
 
 	return (
 		<Card
 			sx={{
-				width: '100%',
-				height: '100%',
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'space-between',
-				background: (() => {
-					if (!types || types.length === 0) return '#f5f5f5';
-
-					const typeColors: { [key: string]: string } = {
-						normal: '#A8A77A',
-						fighting: '#C22E28',
-						flying: '#A98FF3',
-						poison: '#A33EA1',
-						ground: '#8e7f51',
-						rock: '#B6A136',
-						bug: '#A6B91A',
-						ghost: '#735797',
-						steel: '#B7B7CE',
-						fire: '#EE8130',
-						water: '#6390F0',
-						grass: '#7AC74C',
-						electric: '#F7D02C',
-						psychic: '#F95587',
-						ice: '#96D9D6',
-						dragon: '#6F35FC',
-						dark: '#0e0e0e',
-						fairy: '#D685AD',
-					};
-
-					const colors = types
-						.map((type) => typeColors[type.type.name] || '#f5f5f5')
-						.slice(0, 2);
-
-					if (colors.length === 1) {
-						return colors[0];
-					} else {
-						return `linear-gradient(122deg, ${colors[0]} 50%, ${colors[1]} 50%)`;
-					}
-				})(),
-				color: 'white',
-				backgroundSize: 'cover',
-				boxShadow: 'none',
+				...cardStyle.background,
 			}}>
-			<CardActionArea>
-				<CardMedia
-					component='img'
-					sx={{
-						height: '180px',
-						objectFit: 'contain',
-					}}
-					image={image}
-					alt={name}
-				/>
-				<CardContent
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-					}}>
-					<Typography
-						variant='caption'
-						textAlign='center'>
-						Nº 000{id}
-					</Typography>
-					<Typography
-						variant='h6'
-						sx={{
-							textAlign: 'center',
-							height: titleHeight,
-							overflow: 'hidden',
-							textOverflow: 'ellipsis',
-							whiteSpace: 'nowrap',
-						}}>
-						{name}
-					</Typography>
-					<Typography
-						variant='body2'
-						sx={{
-							textAlign: 'center',
-						}}>
-						Peso: {Number(weight.toFixed(2)) / 10} kg
-					</Typography>
-				</CardContent>
-			</CardActionArea>
+			<ContentCard
+				id={id}
+				image={image}
+				name={name}
+				types={types}
+				weight={weight}
+			/>
 			<CardActions
 				sx={{
 					display: 'flex',

@@ -8,6 +8,7 @@ interface PokemonState {
 	searchTerm: string;
 	status: 'idle' | 'loading' | 'succeeded' | 'failed';
 	error: string | null;
+	previousPageUrl: string | null; 
 }
 
 const initialState: PokemonState = {
@@ -16,6 +17,7 @@ const initialState: PokemonState = {
 	searchTerm: '',
 	status: 'idle',
 	error: null,
+	previousPageUrl: null, 
 };
 
 const pokemonSlice = createSlice({
@@ -28,6 +30,9 @@ const pokemonSlice = createSlice({
 				pokemon.name.toLowerCase().includes(action.payload.toLowerCase())
 			);
 		},
+		setPreviousPageUrl(state, action: PayloadAction<string | null>) {
+			state.previousPageUrl = action.payload; 
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -38,7 +43,7 @@ const pokemonSlice = createSlice({
 			.addCase(fetchAllPokemons.fulfilled, (state, action) => {
 				state.status = 'succeeded';
 				state.allPokemons = action.payload;
-				state.filteredPokemons = action.payload; // Inicializa com todos os Pokémon
+				state.filteredPokemons = action.payload;
 			})
 			.addCase(fetchAllPokemons.rejected, (state, action) => {
 				state.status = 'failed';
@@ -47,5 +52,5 @@ const pokemonSlice = createSlice({
 	},
 });
 
-export const { setSearchTerm } = pokemonSlice.actions;
+export const { setSearchTerm, setPreviousPageUrl } = pokemonSlice.actions;
 export const pokemonReducer = pokemonSlice.reducer;

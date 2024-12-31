@@ -19,7 +19,6 @@ export const Pagination = () => {
 		dispatch(setPage(page));
 	};
 
-	// Renderiza o estado de carregamento ou erro, se necessário
 	if (status === 'loading') {
 		return <p>Carregando...</p>;
 	}

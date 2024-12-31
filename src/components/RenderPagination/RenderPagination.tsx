@@ -25,12 +25,12 @@ export const RenderPagination = ({
 		<Pagination
 			count={totalPages}
 			page={currentPage}
-			siblingCount={isMobile ? 0 : 1}
-			boundaryCount={1}
+			siblingCount={isMobile ? 1 : 1}
+			boundaryCount={isMobile ? 0 : 1}
 			shape='circular'
-			onChange={(_, page) => handlePageChange(page)} 
-			showFirstButton
-			showLastButton
+			onChange={(_, page) => handlePageChange(page)}
+			showFirstButton={!isMobile}
+			showLastButton={!isMobile}
 			sx={{
 				'& .MuiPaginationItem-root': {
 					color: 'yellow',
