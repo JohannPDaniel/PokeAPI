@@ -1,11 +1,8 @@
-import {
-	Button,
-	Card, CardActions
-} from '@mui/material';
+import { Button, Card, CardActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Type } from '../../types/pokemonDetails.types';
-import { getCardStyle } from './styleCard';
+import { Type } from '../../../types/pokemonDetails.types';
 import { ContentCard } from '../ContentCard';
+import { getCardStyle } from './styleCard';
 
 interface CardPokemonProps {
 	id: number;
@@ -24,7 +21,6 @@ export function CardPokemon({
 }: CardPokemonProps) {
 	const navigate = useNavigate();
 
-	// Calcular o estilo dinamicamente
 	const cardStyle = getCardStyle(types);
 
 	return (

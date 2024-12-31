@@ -1,8 +1,8 @@
 import { Grid2 } from '@mui/material';
-import { CardPokemon } from '../CardPokemon';
-import { style } from '../Home/style';
-import { useHome } from '../../config/hooks/useHome';
 import { useMediaQuery } from '@mui/material';
+import { useHome } from "../../../config/hooks/useHome";
+import { style } from "../style";
+import { CardPokemon } from "../CardPokemon";
 
 export const GridCard = () => {
 	const { currentPagePokemons } = useHome();

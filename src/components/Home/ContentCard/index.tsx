@@ -4,8 +4,8 @@ import {
 	CardContent,
 	Typography,
 } from '@mui/material';
-import { Type } from '../../types/pokemonDetails.types';
-import { getCardStyle } from '../CardPokemon/styleCard';
+import { Type } from "../../../types/pokemonDetails.types";
+import { getCardStyle } from "../CardPokemon/styleCard";
 
 interface CardPokemonProps {
 	id: number;

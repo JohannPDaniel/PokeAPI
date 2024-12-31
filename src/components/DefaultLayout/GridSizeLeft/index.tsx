@@ -1,5 +1,5 @@
 import { Grid2 } from '@mui/material';
-import { SlideshowLeft } from "../SlideShowLeft";
+import { SlideshowLeft } from '../SlideShowLeft';
 
 export const GridSizeLeft = () => {
 	return (

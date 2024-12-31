@@ -1,5 +1,5 @@
 import { Backdrop } from '@mui/material';
-import backDropPokemons from '../../assets/backDropPokemons.gif';
+import backDropPokemons from '../../../assets/backDropPokemons.gif';
 
 export const BackdropMui = () => {
 	return (

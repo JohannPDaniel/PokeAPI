@@ -1,8 +1,8 @@
 import { Box, Grid2, TextField, useMediaQuery } from '@mui/material';
-import wallPaperPokemon from '../../assets/wallPaperPokemon.png';
-import { useHome } from '../../config/hooks/useHome';
+import wallPaperPokemon from '../../../assets/wallPaperPokemon.png';
+import { useHome } from '../../../config/hooks/useHome';
 import { GridCard } from '../GridCard';
-import { style } from '../Home/style';
+import { style } from '../style';
 
 export const GridContentHome = () => {
 	const { searchTerm, handleSearchChange } = useHome();
@@ -10,7 +10,7 @@ export const GridContentHome = () => {
 	const isMediumMobile = useMediaQuery(
 		'(min-width: 375px) and (max-width: 424px)'
 	);
-	
+
 	const isLargeMobile = useMediaQuery(
 		'(min-width: 425px) and (max-width: 767px)'
 	);

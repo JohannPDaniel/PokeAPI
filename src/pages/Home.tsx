@@ -1,11 +1,11 @@
 import { Grid2 } from '@mui/material';
 import { useEffect } from 'react';
-import { BackdropMui } from '../components/BackdropMui';
-import { GridContentHome } from '../components/GridContentHome';
 import { style } from '../components/Home/style';
-import { Pagination } from '../components/RenderPagination';
 import { useHome } from '../config/hooks/useHome';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
+import { BackdropMui } from "../components/Home/BackdropMui";
+import { GridContentHome } from "../components/Home/GridContentHome";
+import { Pagination } from "../components/Home/RenderPagination";
 
 export const Home = () => {
 	const { dispatch, status, error, totalPages, currentPage, allPokemons } =

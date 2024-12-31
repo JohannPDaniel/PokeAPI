@@ -1,6 +1,6 @@
 import { Grid2 } from '@mui/material';
-import { GridSizeLeft } from '../../components/GridSizeLeft';
-import { GridSizeRight } from '../../components/GridSizeRight';
+import { GridSizeLeft } from '../../components/DefaultLayout/GridSizeLeft';
+import { GridSizeRight } from '../../components/DefaultLayout/GridSizeRight';
 
 interface DefaultLayoutProps {
 	children: React.ReactNode;

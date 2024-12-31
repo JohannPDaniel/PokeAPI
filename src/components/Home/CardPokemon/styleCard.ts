@@ -1,4 +1,4 @@
-import { Type } from '../../types/pokemonDetails.types';
+import { Type } from '../../../types/pokemonDetails.types';
 import { typeColors } from './typeColors';
 
 const getCardBackground = (types: Type[]) => {

@@ -1,6 +1,6 @@
+import { useAppDispatch, useAppSelector } from "../../../store/hook";
+import { setPage } from "../../../store/modules/paginationSlice/paginationSlice.reducer";
 import { RenderPagination } from './RenderPagination';
-import { useAppDispatch, useAppSelector } from '../../store/hook';
-import { setPage } from '../../store/modules/paginationSlice/paginationSlice.reducer';
 import { Grid2 } from '@mui/material';
 
 export const Pagination = () => {
