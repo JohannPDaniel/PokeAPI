@@ -3,13 +3,13 @@ import wallpaper from '../../assets/wallpaper.png';
 export const style = {
 	wallPaperPokemon: {
 		width: '100%',
-		maxWidth: 300,
+		maxWidth: {xs: 250, sm: 300},
 		alignSelf: 'center',
 		marginBlock: 3,
 		animation: 'pulse 1.3s infinite',
 		'@keyframes pulse': {
 			'0%': { transform: 'scale(1)' },
-			'50%': { transform: 'scale(1.3)' },
+			'50%': { transform: 'scale(1.2)' },
 			'100%': { transform: 'scale(1)' },
 		},
 	},
@@ -23,7 +23,7 @@ export const style = {
 	},
 	input: {
 		display: 'flex',
-		py: 4
+		py: {xs: 4, sm: 1}
 	},
 	card: {
 		display: 'flex',

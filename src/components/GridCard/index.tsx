@@ -33,7 +33,7 @@ export const GridCard = () => {
 				currentPagePokemons.map((pokemon) => (
 					<Grid2
 						key={pokemon.id}
-						size={{ xs: gridSize, sm: 6, md: 4 }} 
+						size={{ xs: gridSize, sm: 6, md: 6, lg: 4 }} 
 					>
 						<CardPokemon
 							types={pokemon.types}
