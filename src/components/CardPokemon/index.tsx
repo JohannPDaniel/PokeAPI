@@ -110,7 +110,7 @@ export function CardPokemon({
 						sx={{
 							textAlign: 'center',
 						}}>
-						Peso: {weight.toFixed(2)} kg
+						Peso: {Number(weight.toFixed(2)) / 10} kg
 					</Typography>
 				</CardContent>
 			</CardActionArea>

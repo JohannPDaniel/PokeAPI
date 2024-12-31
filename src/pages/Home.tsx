@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../store/hook';
 import { fetchAllPokemons } from '../store/modules/getPokemonSlice/fetchPokemon.action';
 import { setSearchTerm } from '../store/modules/getPokemonSlice/fetchPokemon.reducer';
+import { setTotalPages } from '../store/modules/paginationSlice/paginationSlice.reducer';
 import { Pagination } from '../components/RenderPagination';
 import pokemons from '../assets/pokemons.gif';
 import pokemon from '../assets/pokemon.png';
@@ -24,21 +25,30 @@ const style = {
 
 export const Home = () => {
 	const dispatch = useAppDispatch();
-	const { currentPagePokemons, searchTerm, status, error } = useAppSelector(
+	const { allPokemons, searchTerm, status, error } = useAppSelector(
 		(state) => state.pokemon
+	);
+	const { currentPage, itemsPerPage } = useAppSelector(
+		(state) => state.pagination
+	);
+
+	const startIndex = (currentPage - 1) * itemsPerPage;
+	const currentPagePokemons = allPokemons.slice(
+		startIndex,
+		startIndex + itemsPerPage
 	);
 
 	useEffect(() => {
 		document.title = 'Página Inicial - Pokémon';
-		dispatch(fetchAllPokemons());
-	}, [dispatch]);
+		dispatch(fetchAllPokemons()).then(() => {
+			dispatch(setTotalPages(Math.ceil(allPokemons.length / itemsPerPage)));
+		});
+	}, [dispatch, allPokemons.length, itemsPerPage]);
 
-	// Handle para o campo de busca
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(setSearchTerm(event.target.value));
 	};
 
-	// Renderização condicional
 	if (status === 'loading') {
 		return (
 			<Backdrop
@@ -74,6 +84,8 @@ export const Home = () => {
 			<Grid2
 				size={12}
 				sx={{
+					height: 'auto',
+					minHeight: '100vh',
 					backgroundImage: `url(${wallpaper})`,
 					backgroundSize: 'contain',
 					backgroundPosition: 'bottom',
@@ -100,7 +112,7 @@ export const Home = () => {
 							size={{ xs: 12 }}
 							sx={{
 								display: 'flex',
-								px: { xs: 8, sm: 6, md: 3, lg: 22 }
+								px: { xs: 8, sm: 6, md: 3, lg: 22 },
 							}}>
 							<TextField
 								fullWidth
@@ -123,7 +135,7 @@ export const Home = () => {
 							}}>
 							{currentPagePokemons.map((pokemon) => (
 								<Grid2
-									key={pokemon.id} 
+									key={pokemon.id}
 									size={{ xs: 10, sm: 6, md: 6, lg: 4 }}>
 									<CardPokemon
 										types={pokemon.types}

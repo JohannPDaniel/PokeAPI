@@ -6,33 +6,18 @@ import { rootReducer } from './modules/rootReducer';
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: [''], // Adicione os slices que você deseja persistir
+	whitelist: ['pagination'], 
 };
-
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-// Sanitizadores para DevTools
-const actionSanitizer = (action: any) =>
-	action.type === 'FETCH_LARGE_DATA_SUCCESS' && action.payload
-		? { ...action, payload: '<<LARGE_DATA_REMOVED>>' }
-		: action;
-
-const stateSanitizer = (state: any) =>
-	state.allPokemons?.length > 1300
-		? { ...state, allPokemons: '<<DATA_TOO_LARGE>>' }
-		: state;
 
 export const store = configureStore({
 	reducer: persistedReducer,
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
-			serializableCheck: false, // Desativa verificações de serialização
-			immutableCheck: false, // Desativa verificações de imutabilidade
+			serializableCheck: false, 
+			immutableCheck: false,
 		}),
-	devTools: process.env.NODE_ENV !== 'production' && {
-		actionSanitizer,
-		stateSanitizer,
-	},
+	devTools: process.env.NODE_ENV !== 'production',
 });
 
 export const persistor = persistStore(store);

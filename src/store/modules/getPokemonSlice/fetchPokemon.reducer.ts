@@ -4,28 +4,16 @@ import { fetchAllPokemons } from './fetchPokemon.action';
 
 interface PokemonState {
 	allPokemons: PokemonDetailsTypes[];
-	filteredPokemons: PokemonDetailsTypes[];
-	currentPagePokemons: PokemonDetailsTypes[];
-	pagination: {
-		totalPages: number;
-		currentPage: number;
-		itemsPerPage: number;
-	};
-	searchTerm: string; // Termo de pesquisa
+	searchTerm: string;
+	previousPageUrl: string | null; // Adicionada a propriedade
 	status: 'idle' | 'loading' | 'succeeded' | 'failed';
 	error: string | null;
 }
 
 const initialState: PokemonState = {
 	allPokemons: [],
-	filteredPokemons: [],
-	currentPagePokemons: [],
-	pagination: {
-		totalPages: 0,
-		currentPage: 1,
-		itemsPerPage: 6,
-	},
 	searchTerm: '',
+	previousPageUrl: null, 
 	status: 'idle',
 	error: null,
 };
@@ -36,43 +24,9 @@ const pokemonSlice = createSlice({
 	reducers: {
 		setSearchTerm(state, action: PayloadAction<string>) {
 			state.searchTerm = action.payload;
-
-			if (!action.payload.trim()) {
-				state.filteredPokemons = state.allPokemons;
-			} else {
-				state.filteredPokemons = state.allPokemons.filter((pokemon) =>
-					pokemon.name.toLowerCase().includes(action.payload.toLowerCase())
-				);
-			}
-
-			state.pagination.totalPages = Math.ceil(
-				state.filteredPokemons.length / state.pagination.itemsPerPage
-			);
-
-			state.pagination.currentPage = 1;
-
-			const startIndex = 0;
-			const endIndex = Math.min(
-				state.filteredPokemons.length,
-				state.pagination.itemsPerPage
-			);
-
-			state.currentPagePokemons = state.filteredPokemons.slice(
-				startIndex,
-				endIndex
-			);
 		},
-
-		setPage(state, action: PayloadAction<number>) {
-			const page = action.payload;
-			const startIndex = (page - 1) * state.pagination.itemsPerPage;
-			const endIndex = startIndex + state.pagination.itemsPerPage;
-
-			state.pagination.currentPage = page;
-			state.currentPagePokemons = state.filteredPokemons.slice(
-				startIndex,
-				endIndex
-			);
+		setPreviousPageUrl(state, action: PayloadAction<string | null>) {
+			state.previousPageUrl = action.payload; 
 		},
 	},
 	extraReducers: (builder) => {
@@ -83,25 +37,7 @@ const pokemonSlice = createSlice({
 			})
 			.addCase(fetchAllPokemons.fulfilled, (state, action) => {
 				state.status = 'succeeded';
-
-				if (action.payload?.entities?.pokemon) {
-					state.allPokemons = Object.values(action.payload.entities.pokemon);
-					state.filteredPokemons = Object.values(
-						action.payload.entities.pokemon
-					);
-					state.pagination.totalPages = Math.ceil(
-						state.filteredPokemons.length / state.pagination.itemsPerPage
-					);
-					state.currentPagePokemons = state.filteredPokemons.slice(
-						0,
-						state.pagination.itemsPerPage
-					);
-				} else {
-					state.allPokemons = [];
-					state.filteredPokemons = [];
-					state.currentPagePokemons = [];
-					state.pagination.totalPages = 0;
-				}
+				state.allPokemons = action.payload;
 			})
 			.addCase(fetchAllPokemons.rejected, (state, action) => {
 				state.status = 'failed';
@@ -110,5 +46,5 @@ const pokemonSlice = createSlice({
 	},
 });
 
-export const { setSearchTerm, setPage } = pokemonSlice.actions;
+export const { setSearchTerm, setPreviousPageUrl } = pokemonSlice.actions;
 export const pokemonReducer = pokemonSlice.reducer;

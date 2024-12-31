@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { normalize, schema } from 'normalizr';
 import { fetchPokemonDataService } from '../../../config/services/fetchPokemon.service';
 import { PokemonDetailsTypes } from "../../../types/pokemonDetails.types";
 
@@ -16,14 +15,7 @@ export const fetchAllPokemons = createAsyncThunk(
 				nextUrl = data.pagination.next;
 			}
 
-			const pokemonSchema = new schema.Entity('pokemon');
-
-			const normalizedData = normalize(allPokemonDetails, [pokemonSchema]);
-
-			return {
-				entities: normalizedData.entities,
-				result: normalizedData.result,
-			};
+			return allPokemonDetails; 
 		} catch (error: any) {
 			return rejectWithValue(
 				error.message || 'Erro ao buscar todos os Pokémons'

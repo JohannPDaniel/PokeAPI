@@ -1,5 +1,5 @@
-import { Box, Grid2, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { Box, Button, Grid2, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../store/hook';
 import decoration1 from '../assets/decoration1.png';
 import nextPage from '../assets/nextPage.png';
@@ -32,9 +32,21 @@ export const PokemonDetails = () => {
 	const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
 	const { id } = useParams();
+	const navigate = useNavigate()
 	const pokemon = useAppSelector((state) =>
 		state.pokemon.allPokemons.find((poke) => poke.id === parseInt(id || '', 10))
 	);
+	const previousPageUrl = useAppSelector(
+		(state) => state.pokemon.previousPageUrl
+	);
+
+	const handleBack = () => {
+		if (previousPageUrl) {
+			navigate(previousPageUrl); 
+		} else {
+			navigate('/'); 
+		}
+	};
 
 	if (!pokemon) {
 		return <Typography variant='h6'>Pokémon não encontrado.</Typography>;
@@ -47,6 +59,29 @@ export const PokemonDetails = () => {
 				.filter(Boolean)
 		)
 	);
+
+	const typeColors: { [key: string]: string } = {
+		normal: '#A8A77A',
+		fighting: '#C22E28',
+		flying: '#A98FF3',
+		poison: '#A33EA1',
+		ground: '#8e7f51',
+		rock: '#B6A136',
+		bug: '#A6B91A',
+		ghost: '#735797',
+		steel: '#B7B7CE',
+		fire: '#EE8130',
+		water: '#6390F0',
+		grass: '#7AC74C',
+		electric: '#F7D02C',
+		psychic: '#F95587',
+		ice: '#96D9D6',
+		dragon: '#6F35FC',
+		dark: '#0e0e0e',
+		fairy: '#D685AD',
+	};
+
+	const typeColor = typeColors[pokemon.types[0].type.name] || '#f5f5f5';
 
 	const imageSize = (() => {
 		switch (true) {
@@ -182,13 +217,14 @@ export const PokemonDetails = () => {
 											display: 'flex',
 											justifyContent: 'center',
 											alignItems: 'center',
+											height: 'auto',
 										}}>
 										<Box
 											sx={{
 												width: '100%',
-												height: '100%',
+												aspectRatio: '1 / 1',
 												backgroundImage: `url(${pokemon.sprites.other['official-artwork'].front_default})`,
-												backgroundSize: 'contain',
+												backgroundSize: 'cover',
 												backgroundPosition: 'center',
 												backgroundRepeat: 'no-repeat',
 												overflow: 'hidden',
@@ -214,39 +250,83 @@ export const PokemonDetails = () => {
 												borderRadius: 2,
 											}}>
 											<Grid2
-												size={9}
+												size={10}
 												sx={{
 													display: 'flex',
 													justifyContent: 'space-between',
 												}}>
 												<Box>
 													<Typography>Height</Typography>
-													<Typography>{pokemon.height} m</Typography>
+													<Box
+														sx={{
+															display: 'flex',
+															justifyContent: 'center',
+															alignItems: 'center',
+															backgroundColor: typeColor,
+															color: '#fff',
+															padding: '0.5rem 3rem',
+															mr: 1,
+															mt: 1,
+															borderRadius: 1,
+															textTransform: 'capitalize',
+														}}>
+														{Number(pokemon.height / 10).toFixed(2)} m
+													</Box>
 												</Box>
 												<Box>
-													<Typography>Category</Typography>
-													<Typography>Seed</Typography>
+													<Typography>Weight</Typography>
+													<Box
+														sx={{
+															display: 'flex',
+															justifyContent: 'center',
+															alignItems: 'center',
+															backgroundColor: typeColor,
+															color: '#fff',
+															padding: '0.5rem 2rem',
+															mt: 1,
+															borderRadius: 1,
+															textTransform: 'capitalize',
+														}}>
+														{(Number(pokemon.weight) / 10).toFixed(1)} kg
+													</Box>
 												</Box>
 											</Grid2>
 											<Grid2
-												size={9}
+												size={12}
 												sx={{
 													display: 'flex',
-													justifyContent: 'space-between',
+													flexDirection: 'column',
+													gap: 1,
 												}}>
-												<Box>
-													<Typography>Weight</Typography>
-													<Typography>
-														{(Number(pokemon.weight) / 10).toFixed(2)} kg
-													</Typography>
-												</Box>
-												<Box>
-													<Typography>Abilities</Typography>
-													<Typography>
-														{pokemon.abilities
-															.map((ability) => ability.ability.name)
-															.join(', ')}
-													</Typography>
+												<Typography>Abilities</Typography>
+												<Box
+													sx={{
+														display: 'flex',
+														flexWrap: 'nowrap',
+														gap: 1,
+														overflowX: 'auto',
+													}}>
+													{pokemon.abilities.map((ability, index) => {
+														const typeColor =
+															typeColors[pokemon.types[0].type.name] ||
+															'#f5f5f5';
+														return (
+															<Box
+																key={index}
+																sx={{
+																	display: 'flex',
+																	justifyContent: 'center',
+																	alignItems: 'center',
+																	backgroundColor: typeColor,
+																	color: '#fff',
+																	padding: '0.5rem 1rem',
+																	borderRadius: 1,
+																	textTransform: 'capitalize',
+																}}>
+																{ability.ability.name}
+															</Box>
+														);
+													})}
 												</Box>
 											</Grid2>
 										</Grid2>
@@ -297,7 +377,7 @@ export const PokemonDetails = () => {
 														<Box
 															sx={{
 																height: '100%',
-																width: `${(stat.base_stat / 200) * 100}%`, // Ajusta o tamanho proporcional à largura da barra branca
+																width: `${(stat.base_stat / 200) * 100}%`,
 																backgroundColor: '#30a7d7',
 															}}
 														/>
@@ -328,7 +408,6 @@ export const PokemonDetails = () => {
 												padding: 3,
 												borderRadius: 2,
 											}}>
-											{/* Tipos */}
 											<Grid2
 												size={12}
 												sx={{
@@ -349,10 +428,11 @@ export const PokemonDetails = () => {
 																height: 'auto',
 																display: 'flex',
 																justifyContent: 'center',
-																backgroundColor: '#9bcc50',
+																backgroundColor: typeColors[type.type.name],
 																px: 7,
 																py: 0.5,
 																borderRadius: 1,
+																color: '#fff',
 															}}>
 															{type.type.name}
 														</Grid2>
@@ -360,7 +440,6 @@ export const PokemonDetails = () => {
 												</Grid2>
 											</Grid2>
 
-											{/* Weaknesses */}
 											<Grid2
 												size={12}
 												sx={{
@@ -381,7 +460,7 @@ export const PokemonDetails = () => {
 																height: 'auto',
 																display: 'flex',
 																justifyContent: 'center',
-																backgroundColor: '#f66',
+																backgroundColor: typeColors[weakness] || '#f66',
 																px: 7,
 																py: 0.5,
 																borderRadius: 1,
@@ -395,6 +474,20 @@ export const PokemonDetails = () => {
 										</Grid2>
 									</Grid2>
 								</Grid2>
+							</Grid2>
+							<Grid2
+								size={12}
+								sx={{
+									width: '100%',
+									display: 'flex',
+									justifyContent: 'center',
+									py: 3,
+								}}>
+								<Button
+									variant='contained'
+									onClick={handleBack}>
+									Voltar
+								</Button>
 							</Grid2>
 						</Grid2>
 						<Box
