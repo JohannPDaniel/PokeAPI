@@ -40,18 +40,16 @@ export const GridBoxPokemonDetail = () => {
 		gridSize = 12;
 	} else if (isLargeMobile) {
 		gridSize = 6;
-    }
+	}
 
-	let gridWidth = "150px";
+	let gridWidth = '150px';
 	if (isSmallMobile) {
 		gridWidth = '148px';
 	} else if (isMediumMobile) {
 		gridWidth = '200px';
 	} else if (isLargeMobile) {
 		gridWidth = '250px';
-    }
-    
-
+	}
 
 	return (
 		<Grid2 size={12}>
@@ -97,13 +95,13 @@ export const GridBoxPokemonDetail = () => {
 						}}>
 						<Grid2
 							size={4}
-                            sx={ {
-                                width: "100%",
+							sx={{
+								width: '100%',
 								display: 'flex',
 								flexDirection: { xs: 'column', sm: 'row' },
 								gap: 2,
 							}}>
-							<Box sx={{ width: "100%"}}>
+							<Box sx={{ width: '100%' }}>
 								<Typography>Height</Typography>
 								<Box
 									sx={{
@@ -122,7 +120,7 @@ export const GridBoxPokemonDetail = () => {
 									{Number(pokemon.height / 10).toFixed(2)} m
 								</Box>
 							</Box>
-							<Box sx={{ width: "100%"}}>
+							<Box sx={{ width: '100%' }}>
 								<Typography>Weight</Typography>
 								<Box
 									sx={{
@@ -152,7 +150,7 @@ export const GridBoxPokemonDetail = () => {
 							<Box
 								sx={{
 									display: 'flex',
-									flexWrap: { xs: 'wrap', sm: 'nowrap' },
+									flexWrap: { xs: 'wrap'},
 									gap: 1,
 									overflowX: 'auto',
 								}}>
@@ -171,7 +169,7 @@ export const GridBoxPokemonDetail = () => {
 												padding: '0.5rem 1rem',
 												borderRadius: 1,
 												textTransform: 'capitalize',
-												width: { xs: gridWidth, sm: "100%" },
+												width: { xs: gridWidth, sm: '100%' },
 											}}>
 											{ability.ability.name}
 										</Box>
@@ -239,33 +237,41 @@ export const GridBoxPokemonDetail = () => {
 								size={12}
 								sx={{
 									display: 'flex',
-									alignItems: 'center',
+                                    flexDirection: 'column',
 									gap: 1,
 								}}>
-								<Typography sx={{ width: '100px' }}>
-									{stat.stat.name}
-								</Typography>
-								<Box
-									sx={{
-										flexGrow: 1,
-										height: '20px',
-										backgroundColor: '#fff',
-										border: '1px solid #ccc',
-										borderRadius: '5px',
-										overflow: 'hidden',
-										position: 'relative',
-									}}>
+								<Box sx={{ width: '100%', display: 'flex', gap: 2, alignItems: "center" }}>
+									<Box sx={{ width: '100px' }}>
+										<Typography
+											variant={
+												isSmallMobile ? 'body2' : "body1"
+											}>
+											{stat.stat.name}
+										</Typography>
+									</Box>
 									<Box
 										sx={{
-											height: '100%',
-											width: `${(stat.base_stat / 200) * 100}%`,
-											backgroundColor: '#30a7d7',
-										}}
-									/>
+											width: '100%',
+											flexGrow: 1,
+											height: '20px',
+											backgroundColor: '#fff',
+											border: '1px solid #ccc',
+											borderRadius: '5px',
+											overflow: 'hidden',
+											position: 'relative',
+										}}>
+										<Box
+											sx={{
+												height: '100%',
+												width: `${(stat.base_stat / 200) * 100}%`,
+												backgroundColor: '#30a7d7',
+											}}
+										/>
+									</Box>
+									<Typography sx={{ width: '30px', textAlign: 'right' }}>
+										{stat.base_stat}
+									</Typography>
 								</Box>
-								<Typography sx={{ width: '50px', textAlign: 'right' }}>
-									{stat.base_stat}
-								</Typography>
 							</Grid2>
 						))}
 					</Grid2>
