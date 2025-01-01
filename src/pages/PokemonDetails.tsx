@@ -125,7 +125,7 @@ export const PokemonDetails = () => {
 								src={decoration1}
 								alt='decoração 2'
 								sx={{
-									width: { md: '150px', lg: '200px' },
+									width: { md: '150px', lg: '300px' },
 									display: { xs: 'none', md: 'block' },
 								}}
 							/>
@@ -158,7 +158,7 @@ export const PokemonDetails = () => {
 								src={decoration1}
 								alt='decoração 2'
 								sx={{
-									width: { md: '150px', lg: '200px' },
+									width: { md: '150px', lg: '300px' },
 									display: { xs: 'none', md: 'block' },
 								}}
 							/>
