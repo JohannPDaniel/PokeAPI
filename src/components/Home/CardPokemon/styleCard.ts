@@ -1,5 +1,5 @@
 import { Type } from '../../../types/pokemonDetails.types';
-import { typeColors } from './typeColors';
+import { typeColors } from "../../../utils/typeColors";
 
 const getCardBackground = (types: Type[]) => {
 	if (!types || types.length === 0) return '#f5f5f5';

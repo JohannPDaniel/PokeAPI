@@ -1,0 +1,20 @@
+export const typeWeaknesses: { [key: string]: string[] } = {
+	grass: ['fire', 'ice', 'poison', 'flying', 'bug'],
+	poison: ['ground', 'psychic'],
+	fire: ['water', 'rock', 'ground'],
+	water: ['electric', 'grass'],
+	electric: ['ground'],
+	flying: ['electric', 'ice', 'rock'],
+	ground: ['water', 'grass', 'ice'],
+	rock: ['water', 'grass', 'fighting', 'ground', 'steel'],
+	psychic: ['bug', 'ghost', 'dark'],
+	ice: ['fire', 'fighting', 'rock', 'steel'],
+	dragon: ['ice', 'dragon', 'fairy'],
+	dark: ['fighting', 'bug', 'fairy'],
+	fairy: ['poison', 'steel'],
+	bug: ['fire', 'flying', 'rock'],
+	steel: ['fire', 'fighting', 'ground'],
+	ghost: ['ghost', 'dark'],
+	normal: ['fighting'],
+};
+

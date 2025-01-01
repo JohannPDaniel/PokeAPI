@@ -1,51 +1,50 @@
-import { useAppDispatch, useAppSelector } from "../../../store/hook";
-import { setPage } from "../../../store/modules/paginationSlice/paginationSlice.reducer";
-import { RenderPagination } from './RenderPagination';
-import { Grid2 } from '@mui/material';
+import { Pagination, useMediaQuery, useTheme } from '@mui/material';
 
-export const Pagination = () => {
-	const dispatch = useAppDispatch();
-	const { currentPage, itemsPerPage } = useAppSelector(
-		(state) => state.pagination
-	);
-	const { searchTerm, filteredPokemons, allPokemons, status } = useAppSelector(
-		(state) => state.pokemon
-	);
+export interface PaginationState {
+	currentPage: number;
+	totalPages: number;
+	itemsPerPage: number;
+}
 
-	const totalItems = searchTerm ? filteredPokemons.length : allPokemons.length;
-	const calculatedTotalPages = Math.ceil(totalItems / itemsPerPage);
+interface RenderPaginationProps {
+	pagination: PaginationState;
+	handlePageChange: (page: number) => void;
+	searchTerm: string;
+}
 
-	const handlePageChange = (page: number) => {
-		dispatch(setPage(page));
-	};
+export const RenderPagination = ({
+	pagination,
+	handlePageChange,
+}: RenderPaginationProps) => {
+	const { currentPage, totalPages } = pagination;
 
-	if (status === 'loading') {
-		return <p>Carregando...</p>;
-	}
-
-	if (status === 'failed') {
-		return <p>Erro ao carregar dados</p>;
-	}
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
 	return (
-		<Grid2 container>
-			<Grid2
-				size={12}
-				sx={{
-					padding: 1,
-					borderRadius: 8,
-					background: 'red',
-				}}>
-				<RenderPagination
-					handlePageChange={handlePageChange}
-					pagination={{
-						currentPage,
-						totalPages: calculatedTotalPages,
-						itemsPerPage,
-					}}
-					searchTerm={searchTerm}
-				/>
-			</Grid2>
-		</Grid2>
+		<Pagination
+			count={totalPages}
+			page={currentPage}
+			siblingCount={isMobile ? 1 : 1}
+			boundaryCount={isMobile ? 0 : 1}
+			shape='circular'
+			onChange={(_, page) => handlePageChange(page)}
+			showFirstButton={!isMobile}
+			showLastButton={!isMobile}
+			sx={{
+				'& .MuiPaginationItem-root': {
+					color: 'yellow',
+					backgroundColor: 'red',
+					'&.Mui-selected': {
+						backgroundColor: 'yellow',
+						color: 'red',
+					},
+					'&:hover': {
+						backgroundColor: '#ed6f6f',
+						color: 'yellow',
+					},
+				},
+			}}
+		/>
 	);
 };
