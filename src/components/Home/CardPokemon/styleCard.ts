@@ -32,5 +32,6 @@ export const getCardStyle = (types: Type[]) => ({
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
+		textTransform: 'capitalize',
 	},
 });

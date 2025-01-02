@@ -102,7 +102,8 @@ export const PokemonDetails = () => {
 							mt: 2,
 						}}>
 						<Typography
-							variant={gridText}
+							variant={ gridText }
+							textTransform="capitalize"
 							textAlign={{ xs: 'center' }}>
 							{pokemon.name}
 							{isMobile && <Box component='br' />}{' '}
