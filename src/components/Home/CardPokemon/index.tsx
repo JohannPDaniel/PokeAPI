@@ -1,8 +1,9 @@
-import { Button, Card, CardActions } from '@mui/material';
+import { Button, Card, CardActions, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Type } from '../../../types/pokemonDetails.types';
 import { ContentCard } from '../ContentCard';
 import { getCardStyle } from './styleCard';
+import {CatchingPokemon} from '@mui/icons-material';
 
 interface CardPokemonProps {
 	id: number;
@@ -57,6 +58,12 @@ export function CardPokemon({
 					}
 					sx={{ width: '100%' }}>
 					Veja mais
+				</Button>
+				<Button
+					variant='contained'
+					size='small'
+					sx={{ width: '100%', backgroundColor: "#ff0000" }}>
+					<CatchingPokemon  />
 				</Button>
 			</CardActions>
 		</Card>

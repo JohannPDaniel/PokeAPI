@@ -7,8 +7,7 @@ import { AppBarMui } from '../components/Pokedex/AppBarMui';
 import { CardPokedex } from '../components/Pokedex/CardPokedex';
 
 const images = [pokeWallPaper, pokebolaVermelha, whatsPokemon];
-const colors = ['#ff5733', '#fff833', '#00d5ff']; // Alinhado ao número de imagens
-
+const colors = ['#ff5733', '#fff833', '#00d5ff']; 
 export const Pokedex = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
