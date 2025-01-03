@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Type } from '../../../types/pokemonDetails.types';
 import { ContentCard } from "../../Home/ContentCard";
 import { typeColors } from "../../../utils/typeColors";
+import { CatchingPokemon } from "@mui/icons-material";
+import { useAppDispatch, useAppSelector } from "../../../store/hook";
+import { toggleCardState } from "../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer";
 
 interface CardPokemonProps {
 	id: number;
@@ -19,7 +22,12 @@ export function CardPokedex({
 	weight,
 	types,
 }: CardPokemonProps) {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch()
+		const isActive = useAppSelector(
+			(state) => state.addPokedex.activeCards[id] || false
+		);
+	
     
     const getCardBackground = (types: Type[]) => {
         if (!types || types.length === 0) return '#f5f5f5';
@@ -80,6 +88,26 @@ export function CardPokedex({
 					sx={{ width: '100%' }}>
 					Veja mais
 				</Button>
+				<Button
+									variant='contained'
+									size='small'
+									sx={{
+										width: '100%',
+										backgroundColor: isActive ? '#ff0' : '#ff0000',
+										'&:hover': {
+											backgroundColor: isActive ? '#ff0' : '#cc0000',
+										},
+									}}
+									onClick={() => dispatch(toggleCardState(id))}>
+									<CatchingPokemon
+										sx={{
+											color: isActive ? '#ff0000' : '#ff0',
+											'&:hover': {
+												color: isActive ? '#ec4a4a' : '#ff0',
+											},
+										}}
+									/>
+								</Button>
 			</CardActions>
 		</Card>
 	);

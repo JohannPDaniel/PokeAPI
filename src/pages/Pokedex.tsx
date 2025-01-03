@@ -21,7 +21,7 @@ export const Pokedex = () => {
 
 	return (
 		<Grid2 container>
-			<Grid2 size={12} sx={{ mb: 8 }}>
+			<Grid2 size={12} sx={{ mb: {xs: 7, md: 8} }}>
 				<AppBarMui />
 			</Grid2>
 
@@ -57,7 +57,7 @@ export const Pokedex = () => {
 								textAlign: 'center',
 							}}>
 							<Typography
-								variant='h2'
+								variant='h3'
 								sx={{
 									color: 'white',
 									pt: 2,
@@ -74,7 +74,7 @@ export const Pokedex = () => {
 									justifyContent: 'center',
 									p: { xs: 5, sm: 5 },
 								}}>
-								{Array.from({ length: 0 }).map((_, index) => (
+								{Array.from({ length: 4 }).map((_, index) => (
 									<Grid2
 										key={index}
 										size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
