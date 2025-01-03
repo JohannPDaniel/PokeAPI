@@ -1,6 +1,7 @@
 import { Grid2 } from '@mui/material';
 import { GridSizeLeft } from '../../components/DefaultLayout/GridSizeLeft';
 import { GridSizeRight } from '../../components/DefaultLayout/GridSizeRight';
+import { AppBarMui } from "../../components/Pokedex/AppBarMui";
 
 interface DefaultLayoutProps {
 	children: React.ReactNode;
@@ -9,6 +10,10 @@ interface DefaultLayoutProps {
 export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 	return (
 		<Grid2 container>
+			<Grid2 size={12} sx={{ mb: 8 }}>
+				<AppBarMui />
+			</Grid2>
+
 			<Grid2 size={12}>
 				<Grid2 container>
 					<GridSizeLeft />

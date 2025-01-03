@@ -22,12 +22,10 @@ export const Pokedex = () => {
 
 	return (
 		<Grid2 container>
-			{/* AppBar */}
-			<Grid2 size={12}>
+			<Grid2 size={12} sx={{ mb: 8 }}>
 				<AppBarMui />
 			</Grid2>
 
-			{/* Fundo Dinâmico */}
 			<Grid2
 				size={12}
 				sx={{
@@ -50,9 +48,7 @@ export const Pokedex = () => {
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
 					}}>
-					{/* Conteúdo */}
 					<Grid2 container>
-						{/* Título */}
 						<Grid2
 							size={12}
 							sx={{
@@ -70,7 +66,6 @@ export const Pokedex = () => {
 								Eu escolho você
 							</Typography>
 
-							{/* Cards */}
 							<Grid2
 								container
 								spacing={2}
@@ -80,15 +75,15 @@ export const Pokedex = () => {
 									justifyContent: 'center',
 									p: { xs: 5, sm: 5 },
 								}}>
-								{Array.from({ length: 1 }).map((_, index) => (
+								{Array.from({ length: 0 }).map((_, index) => (
 									<Grid2
 										key={index}
-										size={{ xs: 12, sm: 6, md: 4, lg: 3 }} 
+										size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
 										sx={{
 											display: 'flex',
-											justifyContent: 'center', 
-											minWidth: 260, 
-											maxWidth: '100%', 
+											justifyContent: 'center',
+											minWidth: 260,
+											maxWidth: '100%',
 										}}>
 										<CardPokedex
 											id={index + 1}
@@ -103,7 +98,6 @@ export const Pokedex = () => {
 						</Grid2>
 					</Grid2>
 
-					{/* Indicadores */}
 					<Box
 						sx={{
 							position: 'absolute',

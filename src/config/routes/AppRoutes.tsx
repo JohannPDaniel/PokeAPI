@@ -6,11 +6,11 @@ import { Pokedex } from "../../pages/Pokedex";
 
 const router = createBrowserRouter([
 	{
-		path: '/Home',
+		path: '/',
 		element: <DefaultLayout children={<Home />} />,
 	},
 	{
-		path: '/',
+		path: '/pokedex',
 		element: <Pokedex />,
 	},
 	{
