@@ -10,7 +10,7 @@ interface DefaultLayoutProps {
 export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
 	return (
 		<Grid2 container>
-			<Grid2 size={12} sx={{ mb: 8 }}>
+			<Grid2 size={12} sx={{ mb: {xs: 7, md: 8}}}>
 				<AppBarMui />
 			</Grid2>
 

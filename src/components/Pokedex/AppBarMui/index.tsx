@@ -1,6 +1,7 @@
 import {
 	AppBar,
 	Avatar,
+	Badge,
 	Box,
 	Container,
 	Toolbar,
@@ -10,9 +11,11 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import pokebola from '../../../assets/pokebola.gif';
 import pokebolaIcon from '../../../../public/pokebolaIcon.png';
+import { useAppSelector } from '../../../store/hook';
 
 export function AppBarMui() {
-	const location = useLocation(); // Hook para verificar a rota atual
+	const location = useLocation();
+	const activeCount = useAppSelector((state) => state.addPokedex.activeCount);
 
 	const isHome = location.pathname === '/';
 	const linkText = isHome ? 'Pokedex' : 'Home';
@@ -22,6 +25,7 @@ export function AppBarMui() {
 		<AppBar position='fixed'>
 			<Container maxWidth='xl'>
 				<Toolbar>
+					{/* Desktop */}
 					<Box
 						sx={{
 							display: { xs: 'none', md: 'flex' },
@@ -33,21 +37,26 @@ export function AppBarMui() {
 							src={pokebolaIcon}
 							sx={{ clipPath: 'circle(50%)' }}
 						/>
-						<Typography
-							variant='h5'
-							noWrap
-							sx={{
-								m: 'auto',
-								display: { xs: 'none', md: 'flex' },
-								fontFamily: 'monospace',
-								fontWeight: 700,
-								letterSpacing: '.3rem',
-								color: 'inherit',
-								textDecoration: 'none',
-							}}>
-							<Link to={linkTo}>{linkText}</Link>
-						</Typography>
-						<Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' } }}>
+						<Badge
+							sx={{ m: 'auto' }}
+							badgeContent={activeCount}
+							color='error'>
+							<Typography
+								variant='h5'
+								noWrap
+								sx={{
+									m: 'auto',
+									fontFamily: 'monospace',
+									fontWeight: 700,
+									letterSpacing: '.3rem',
+									color: 'inherit',
+									textDecoration: 'none',
+								}}>
+								<Link to={linkTo}>{linkText}</Link>
+							</Typography>
+						</Badge>
+
+						<Box sx={{ flexGrow: 0 }}>
 							<Tooltip title='Open settings'>
 								<Avatar
 									alt='pokebola'
@@ -59,34 +68,42 @@ export function AppBarMui() {
 					</Box>
 
 					{/* Mobile */}
-					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+					<Box
+						sx={{
+							flexGrow: 1,
+							display: { xs: 'flex', md: 'none' },
+							alignItems: 'center',
+							width: '100%',
+						}}>
 						<Avatar
 							src={pokebolaIcon}
 							alt='pokebola'
+							sx={{ clipPath: 'circle(50%)' }}
 						/>
-					</Box>
-					<Typography
-						variant='h5'
-						noWrap
-						sx={{
-							display: { xs: 'flex', md: 'none' },
-							flexGrow: 1,
-							fontFamily: 'monospace',
-							fontWeight: 700,
-							letterSpacing: '.3rem',
-							color: 'inherit',
-							textDecoration: 'none',
-						}}>
-						<Link to={linkTo}>{linkText}</Link>
-					</Typography>
-					<Box sx={{ flexGrow: 0, display: { xs: 'flex', md: 'none' } }}>
-						<Tooltip title='Open settings'>
-							<Avatar
-								alt='pokebola'
-								src={pokebola}
-								sx={{ clipPath: 'circle(50%)' }}
-							/>
-						</Tooltip>
+
+						<Badge
+							sx={{ m: "auto"}}
+							badgeContent={activeCount}
+							color='error'>
+							<Typography
+								variant='h5'
+								noWrap
+								sx={{
+									m: 'auto',
+									fontFamily: 'monospace',
+									fontWeight: 700,
+									letterSpacing: '.3rem',
+									color: 'inherit',
+									textDecoration: 'none',
+								}}>
+								<Link to={linkTo}>{linkText}</Link>
+							</Typography>
+						</Badge>
+						<Avatar
+							alt='pokebola'
+							src={pokebola}
+							sx={{ clipPath: 'circle(50%)' }}
+						/>
 					</Box>
 				</Toolbar>
 			</Container>

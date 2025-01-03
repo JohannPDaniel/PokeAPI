@@ -1,9 +1,11 @@
-import { Button, Card, CardActions, IconButton } from '@mui/material';
+import { Button, Card, CardActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Type } from '../../../types/pokemonDetails.types';
 import { ContentCard } from '../ContentCard';
 import { getCardStyle } from './styleCard';
-import {CatchingPokemon} from '@mui/icons-material';
+import { CatchingPokemon } from '@mui/icons-material';
+import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { toggleCardState } from '../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer';
 
 interface CardPokemonProps {
 	id: number;
@@ -21,6 +23,12 @@ export function CardPokemon({
 	types,
 }: CardPokemonProps) {
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	// Obtém o estado global para verificar se o card está ativo
+	const isActive = useAppSelector(
+		(state) => state.addPokedex.activeCards[id] || false
+	);
 
 	const cardStyle = getCardStyle(types);
 
@@ -62,8 +70,22 @@ export function CardPokemon({
 				<Button
 					variant='contained'
 					size='small'
-					sx={{ width: '100%', backgroundColor: "#ff0000" }}>
-					<CatchingPokemon  />
+					sx={{
+						width: '100%',
+						backgroundColor: isActive ? '#ff0' : '#ff0000',
+						'&:hover': {
+							backgroundColor: isActive ? '#ff0' : '#cc0000',
+						},
+					}}
+					onClick={() => dispatch(toggleCardState(id))}>
+					<CatchingPokemon
+						sx={{
+							color: isActive ? '#ff0000' : '#ff0',
+							'&:hover': {
+								color: isActive ? '#ec4a4a' : '#ff0',
+							},
+						}}
+					/>
 				</Button>
 			</CardActions>
 		</Card>
