@@ -1,10 +1,13 @@
-import { Grid2, Typography } from '@mui/material';
-import { useMediaQuery } from '@mui/material';
-import { useHome } from "../../../config/hooks/useHome";
-import { style } from "../style";
-import { CardPokemon } from "../CardPokemon";
+import {
+	Grid2,
+	Typography,
+	useMediaQuery
+} from '@mui/material';
+import { useHome } from '../../../config/hooks/useHome';
+import { style } from '../../Home/style';
+import { CardPokedex } from '../CardPokedex';
 
-export const GridCard = () => {
+export const GridCardPokedex = () => {
 	const { currentPagePokemons } = useHome();
 
 	const isSmallMobile = useMediaQuery('(max-width: 374px)');
@@ -15,13 +18,13 @@ export const GridCard = () => {
 		'(min-width: 425px) and (max-width: 767px)'
 	);
 
-	let gridSize = 12; 
+	let gridSize = 12;
 	if (isSmallMobile) {
-		gridSize = 10; 
+		gridSize = 10;
 	} else if (isMediumMobile) {
-		gridSize = 9; 
+		gridSize = 9;
 	} else if (isLargeMobile) {
-		gridSize = 8; 
+		gridSize = 8;
 	}
 
 	return (
@@ -34,7 +37,7 @@ export const GridCard = () => {
 					<Grid2
 						key={pokemon.id}
 						size={{ xs: gridSize, sm: 6, md: 6, lg: 4 }}>
-						<CardPokemon
+						<CardPokedex
 							types={pokemon.types}
 							id={pokemon.id}
 							name={pokemon.name}

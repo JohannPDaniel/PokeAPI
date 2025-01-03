@@ -1,19 +1,13 @@
-import { Box, Grid2, Paper } from '@mui/material';
+import { Box, Grid2, Paper, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import whatsPokemon from '../assets/wallPaperPikachu.webp';
 import pokebolaVermelha from '../assets/pokebolaVermelha.jpg';
-import wallPaperPokebola from '../assets/wallPaperPokebola.jpg';
 import pokeWallPaper from '../assets/pokeWallPaper.jpg';
-import { AppBarMui } from "../components/Pokedex/AppBarMui";
+import whatsPokemon from '../assets/wallPaperPikachu.webp';
+import { AppBarMui } from '../components/Pokedex/AppBarMui';
+import { CardPokedex } from '../components/Pokedex/CardPokedex';
 
-const images = [
-	pokeWallPaper,
-	pokebolaVermelha,
-	wallPaperPokebola,
-	whatsPokemon,
-];
-
-const colors = ['#ff5733', '#fff833', '#00d5ff', '#ff0000'];
+const images = [pokeWallPaper, pokebolaVermelha, whatsPokemon];
+const colors = ['#ff5733', '#fff833', '#00d5ff']; // Alinhado ao número de imagens
 
 export const Pokedex = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,12 +21,15 @@ export const Pokedex = () => {
 	}, []);
 
 	return (
-        <Grid2 container>
-            <Grid2 size={12}>
-                <AppBarMui />
-            </Grid2>
-            <Grid2
-                size={12}
+		<Grid2 container>
+			{/* AppBar */}
+			<Grid2 size={12}>
+				<AppBarMui />
+			</Grid2>
+
+			{/* Fundo Dinâmico */}
+			<Grid2
+				size={12}
 				sx={{
 					padding: 5,
 					backgroundColor: colors[currentIndex],
@@ -46,7 +43,6 @@ export const Pokedex = () => {
 						borderRadius: 5,
 						position: 'relative',
 						display: 'flex',
-						alignItems: 'center',
 						justifyContent: 'center',
 						overflow: 'hidden',
 						backgroundImage: `url(${images[currentIndex]})`,
@@ -54,6 +50,60 @@ export const Pokedex = () => {
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
 					}}>
+					{/* Conteúdo */}
+					<Grid2 container>
+						{/* Título */}
+						<Grid2
+							size={12}
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center',
+								textAlign: 'center',
+							}}>
+							<Typography
+								variant='h2'
+								sx={{
+									color: 'white',
+									pt: 2,
+								}}>
+								Eu escolho você
+							</Typography>
+
+							{/* Cards */}
+							<Grid2
+								container
+								spacing={2}
+								sx={{
+									mb: 10,
+									mt: 5,
+									justifyContent: 'center',
+									p: { xs: 5, sm: 5 },
+								}}>
+								{Array.from({ length: 1 }).map((_, index) => (
+									<Grid2
+										key={index}
+										size={{ xs: 12, sm: 6, md: 4, lg: 3 }} 
+										sx={{
+											display: 'flex',
+											justifyContent: 'center', 
+											minWidth: 260, 
+											maxWidth: '100%', 
+										}}>
+										<CardPokedex
+											id={index + 1}
+											image=''
+											name={`nome ${index + 1}`}
+											types={[]}
+											weight={1}
+										/>
+									</Grid2>
+								))}
+							</Grid2>
+						</Grid2>
+					</Grid2>
+
+					{/* Indicadores */}
 					<Box
 						sx={{
 							position: 'absolute',

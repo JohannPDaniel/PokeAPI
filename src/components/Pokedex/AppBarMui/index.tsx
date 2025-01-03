@@ -1,4 +1,3 @@
-import { Adb } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
 	AppBar,
@@ -134,7 +133,7 @@ export function AppBarMui() {
 								<Avatar
 									alt='Remy Sharp'
 									src={pokebolaGirando}
-									sx={{ p: { xs: 1, sm: 0 }, clipPath: { xs: 'circle(30%)', sm: "circle(48%)" } }}
+									sx={{ p: { xs: 1, sm: 0 }, clipPath: { xs: 'circle(30%)', sm: "circle(49%)" } }}
 								/>
 							</IconButton>
 						</Tooltip>
