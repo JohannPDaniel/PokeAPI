@@ -1,5 +1,6 @@
 import { Type } from '../../../types/pokemonDetails.types';
-import { typeColors } from "../../../utils/typeColors";
+import { typeColors } from '../../../utils/typeColors';
+import { keyframes } from '@emotion/react';
 
 const getCardBackground = (types: Type[]) => {
 	if (!types || types.length === 0) return '#f5f5f5';
@@ -15,6 +16,17 @@ const getCardBackground = (types: Type[]) => {
 	}
 };
 
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
 export const getCardStyle = (types: Type[]) => ({
 	background: {
 		width: '100%',
@@ -26,6 +38,8 @@ export const getCardStyle = (types: Type[]) => ({
 		background: getCardBackground(types),
 		backgroundSize: 'cover',
 		boxShadow: 'none',
+		animation: `${fadeInUp} 0.8s ease-out`,
+		transition: 'opacity 0.4s, transform 0.4s',
 	},
 	name: {
 		textAlign: 'center',

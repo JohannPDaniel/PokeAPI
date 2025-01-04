@@ -1,11 +1,11 @@
+import { CatchingPokemon } from '@mui/icons-material';
 import { Button, Card, CardActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { toggleCardState } from '../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer';
 import { Type } from '../../../types/pokemonDetails.types';
 import { ContentCard } from '../ContentCard';
 import { getCardStyle } from './styleCard';
-import { CatchingPokemon } from '@mui/icons-material';
-import { useAppDispatch, useAppSelector } from '../../../store/hook';
-import { toggleCardState } from '../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer';
 
 interface CardPokemonProps {
 	id: number;
@@ -42,7 +42,7 @@ export function CardPokemon({
 				id={id}
 				image={image}
 				name={name}
-				types={types} 
+				types={types}
 				weight={weight}
 			/>
 			<CardActions
@@ -61,7 +61,7 @@ export function CardPokemon({
 								name,
 								image,
 								weight,
-								types: typeNames, 
+								types: typeNames,
 							},
 						})
 					}
@@ -87,7 +87,7 @@ export function CardPokemon({
 									name,
 									image,
 									weight,
-									types: typeNames, // Passa os nomes dos tipos como string[] para o estado global
+									types: typeNames,
 								},
 							})
 						)

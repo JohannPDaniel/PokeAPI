@@ -6,6 +6,8 @@ import { typeColors } from '../../../utils/typeColors';
 import { CatchingPokemon } from '@mui/icons-material';
 import { useAppDispatch, useAppSelector } from '../../../store/hook';
 import { toggleCardState } from '../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer';
+import { keyframes } from '@emotion/react';
+
 
 interface CardPokemonProps {
 	id: number;
@@ -42,7 +44,19 @@ export function CardPokedex({
 		}
 	};
 
-	const typeNames = types.map((type) => type.type.name);
+	const typeNames = types.map( ( type ) => type.type.name );
+	
+	const fadeInUp = keyframes`
+	  from {
+		opacity: 0;
+		transform: translateY(50px);
+	  }
+	  to {
+		opacity: 1;
+		transform: translateY(0);
+	  }
+	`;
+	
 
 	return (
 		<Card
@@ -56,6 +70,8 @@ export function CardPokedex({
 				background: getCardBackground(types),
 				backgroundSize: 'cover',
 				boxShadow: 'none',
+				animation: `${fadeInUp} 0.8s ease-out`,
+				transition: 'opacity 0.4s, transform 0.4s',
 			}}>
 			<ContentCard
 				id={id}
