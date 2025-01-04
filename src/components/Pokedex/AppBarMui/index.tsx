@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import pokebola from '../../../assets/pokebola.gif';
-import pokebolaIcon from '../../../../public/pokebolaIcon.png';
+import pokebolaIcon from '../../../assets/pokebolaIcon.png';
 import { useAppSelector } from '../../../store/hook';
 
 export function AppBarMui() {
