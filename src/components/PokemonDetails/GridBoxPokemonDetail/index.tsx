@@ -42,13 +42,13 @@ export const GridBoxPokemonDetail = () => {
 		gridSize = 6;
 	}
 
-	let gridWidth = '150px';
+	let gridWidth = '100%';
 	if (isSmallMobile) {
-		gridWidth = '148px';
+		gridWidth = '100%';
 	} else if (isMediumMobile) {
-		gridWidth = '200px';
+		gridWidth = '100%';
 	} else if (isLargeMobile) {
-		gridWidth = '250px';
+		gridWidth = '100%';
 	}
 
 	return (
