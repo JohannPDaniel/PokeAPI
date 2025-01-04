@@ -24,6 +24,7 @@
 </div>
 <div align="center">
     <h3>Veja o deploy desta aplicação no seguinte link:</h3>
+    <a href="https://poke-api-peach-xi.vercel.app/">Projeto PokeAPI</a>
 </div>
 
 ### Tecnologias usadas no projeto
