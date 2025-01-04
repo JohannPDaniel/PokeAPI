@@ -25,10 +25,11 @@ export function CardPokemon({
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
-	// Obtém o estado global para verificar se o card está ativo
 	const isActive = useAppSelector(
 		(state) => state.addPokedex.activeCards[id] || false
 	);
+
+	const typeNames = types.map((type) => type.type.name);
 
 	const cardStyle = getCardStyle(types);
 
@@ -41,7 +42,7 @@ export function CardPokemon({
 				id={id}
 				image={image}
 				name={name}
-				types={types}
+				types={types} 
 				weight={weight}
 			/>
 			<CardActions
@@ -60,7 +61,7 @@ export function CardPokemon({
 								name,
 								image,
 								weight,
-								types,
+								types: typeNames, 
 							},
 						})
 					}
@@ -77,7 +78,20 @@ export function CardPokemon({
 							backgroundColor: isActive ? '#ff0' : '#cc0000',
 						},
 					}}
-					onClick={() => dispatch(toggleCardState(id))}>
+					onClick={() =>
+						dispatch(
+							toggleCardState({
+								id,
+								card: {
+									id,
+									name,
+									image,
+									weight,
+									types: typeNames, // Passa os nomes dos tipos como string[] para o estado global
+								},
+							})
+						)
+					}>
 					<CatchingPokemon
 						sx={{
 							color: isActive ? '#ff0000' : '#ff0',

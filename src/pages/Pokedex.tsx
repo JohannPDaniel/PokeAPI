@@ -5,11 +5,18 @@ import pokeWallPaper from '../assets/pokeWallPaper.jpg';
 import whatsPokemon from '../assets/wallPaperPikachu.webp';
 import { AppBarMui } from '../components/Pokedex/AppBarMui';
 import { CardPokedex } from '../components/Pokedex/CardPokedex';
+import { useAppSelector } from '../store/hook';
+import { Type } from '../types/pokemonDetails.types';
 
 const images = [pokeWallPaper, pokebolaVermelha, whatsPokemon];
-const colors = ['#ff5733', '#fff833', '#00d5ff']; 
+const colors = ['#ff5733', '#fff833', '#00d5ff'];
+
 export const Pokedex = () => {
 	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const selectedCards = useAppSelector(
+		(state) => state.addPokedex.selectedCards
+	);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -18,10 +25,13 @@ export const Pokedex = () => {
 
 		return () => clearInterval(interval);
 	}, []);
-
+	const convertToTypeArray = (typeNames: string[]): Type[] =>
+		typeNames.map((name) => ({ type: { name } }));
 	return (
 		<Grid2 container>
-			<Grid2 size={12} sx={{ mb: {xs: 7, md: 8} }}>
+			<Grid2
+				size={12}
+				sx={{ mb: { xs: 7, md: 8 } }}>
 				<AppBarMui />
 			</Grid2>
 
@@ -47,81 +57,58 @@ export const Pokedex = () => {
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
 					}}>
-					<Grid2 container>
-						<Grid2
-							size={12}
+					<Grid2
+						container
+						spacing={4}
+						sx={{
+							width: '100%',
+							height: 'auto',
+							display: 'flex',
+							justifyContent: 'center',
+							textAlign: 'center',
+							p: 5,
+						}}>
+						<Box
 							sx={{
+								width: '100%',
 								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center',
-								textAlign: 'center',
+								justifyContent: 'center',
 							}}>
 							<Typography
 								variant='h3'
 								sx={{
 									color: 'white',
-									pt: 2,
 								}}>
-								Eu escolho você
+								Eu escolho você !!!
 							</Typography>
-
-							<Grid2
-								container
-								spacing={2}
+						</Box>
+						{selectedCards.length > 0 ? (
+							selectedCards.map((pokemon) => (
+								<Grid2
+									key={pokemon.id}
+									size={ { xs: 12, sm: 6, md: 4, lg: 3 } }
+								sx={{  }}>
+									<CardPokedex
+										types={convertToTypeArray(pokemon.types)}
+										id={pokemon.id}
+										name={pokemon.name}
+										weight={pokemon.weight}
+										image={pokemon.image}
+									/>
+								</Grid2>
+							))
+						) : (
+							<Typography
+								variant='h2'
 								sx={{
-									mb: 10,
-									mt: 5,
-									justifyContent: 'center',
-									p: { xs: 5, sm: 5 },
+									color: '#00ffee',
+									fontWeight: 800,
+									textAlign: 'center',
 								}}>
-								{Array.from({ length: 4 }).map((_, index) => (
-									<Grid2
-										key={index}
-										size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-										sx={{
-											display: 'flex',
-											justifyContent: 'center',
-											minWidth: 260,
-											maxWidth: '100%',
-										}}>
-										<CardPokedex
-											id={index + 1}
-											image=''
-											name={`nome ${index + 1}`}
-											types={[]}
-											weight={1}
-										/>
-									</Grid2>
-								))}
-							</Grid2>
-						</Grid2>
+								Nenhum Pokémon encontrado.
+							</Typography>
+						)}
 					</Grid2>
-
-					<Box
-						sx={{
-							position: 'absolute',
-							bottom: 20,
-							left: '50%',
-							transform: 'translateX(-50%)',
-							display: 'flex',
-							gap: 1,
-						}}>
-						{images.map((_, index) => (
-							<Box
-								key={index}
-								sx={{
-									width: 20,
-									height: 20,
-									borderRadius: '50%',
-									backgroundColor:
-										index === currentIndex ? '#54de38' : '#3939e9',
-									transition: 'background-color 1s',
-									cursor: 'pointer',
-								}}
-								onClick={() => setCurrentIndex(index)}
-							/>
-						))}
-					</Box>
 				</Paper>
 			</Grid2>
 		</Grid2>

@@ -1,11 +1,11 @@
 import { Button, Card, CardActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Type } from '../../../types/pokemonDetails.types';
-import { ContentCard } from "../../Home/ContentCard";
-import { typeColors } from "../../../utils/typeColors";
-import { CatchingPokemon } from "@mui/icons-material";
-import { useAppDispatch, useAppSelector } from "../../../store/hook";
-import { toggleCardState } from "../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer";
+import { ContentCard } from '../../Home/ContentCard';
+import { typeColors } from '../../../utils/typeColors';
+import { CatchingPokemon } from '@mui/icons-material';
+import { useAppDispatch, useAppSelector } from '../../../store/hook';
+import { toggleCardState } from '../../../store/modules/AddPokedexSlice/AddPokedexSlice.reducer';
 
 interface CardPokemonProps {
 	id: number;
@@ -23,40 +23,39 @@ export function CardPokedex({
 	types,
 }: CardPokemonProps) {
 	const navigate = useNavigate();
-	const dispatch = useAppDispatch()
-		const isActive = useAppSelector(
-			(state) => state.addPokedex.activeCards[id] || false
-		);
-	
-    
-    const getCardBackground = (types: Type[]) => {
-        if (!types || types.length === 0) return '#f5f5f5';
-    
-        const colors = types
-            .map((type) => typeColors[type.type.name] || '#f5f5f5')
-            .slice(0, 2);
-    
-        if (colors.length === 1) {
-            return colors[0];
-        } else {
-            return `linear-gradient(122deg, ${colors[0]} 50%, ${colors[1]} 50%)`;
-        }
-    };
-    
+	const dispatch = useAppDispatch();
+	const isActive = useAppSelector(
+		(state) => state.addPokedex.activeCards[id] || false
+	);
+
+	const getCardBackground = (types: Type[]) => {
+		if (!types || types.length === 0) return '#f5f5f5';
+
+		const colors = types
+			.map((type) => typeColors[type.type.name] || '#f5f5f5')
+			.slice(0, 2);
+
+		if (colors.length === 1) {
+			return colors[0];
+		} else {
+			return `linear-gradient(122deg, ${colors[0]} 50%, ${colors[1]} 50%)`;
+		}
+	};
+
+	const typeNames = types.map((type) => type.type.name);
 
 	return (
 		<Card
 			sx={{
+				width: '100%',
+				height: 'auto',
 				display: 'flex',
 				flexDirection: 'column',
-				justifyContent: 'center',
+				justifyContent: 'space-between',
 				color: 'white',
 				background: getCardBackground(types),
 				backgroundSize: 'cover',
 				boxShadow: 'none',
-				width: '100%',
-				minWidth: "100%", // Ajusta o tamanho mínimo
-				maxWidth: '100%', // Remove limite fixo na largura
 			}}>
 			<ContentCard
 				id={id}
@@ -81,7 +80,7 @@ export function CardPokedex({
 								name,
 								image,
 								weight,
-								types,
+								types: typeNames, // Aqui passamos os nomes dos tipos como string[]
 							},
 						})
 					}
@@ -89,25 +88,38 @@ export function CardPokedex({
 					Veja mais
 				</Button>
 				<Button
-									variant='contained'
-									size='small'
-									sx={{
-										width: '100%',
-										backgroundColor: isActive ? '#ff0' : '#ff0000',
-										'&:hover': {
-											backgroundColor: isActive ? '#ff0' : '#cc0000',
-										},
-									}}
-									onClick={() => dispatch(toggleCardState(id))}>
-									<CatchingPokemon
-										sx={{
-											color: isActive ? '#ff0000' : '#ff0',
-											'&:hover': {
-												color: isActive ? '#ec4a4a' : '#ff0',
-											},
-										}}
-									/>
-								</Button>
+					variant='contained'
+					size='small'
+					sx={{
+						width: '100%',
+						backgroundColor: isActive ? '#ff0' : '#ff0000',
+						'&:hover': {
+							backgroundColor: isActive ? '#ff0' : '#cc0000',
+						},
+					}}
+					onClick={() =>
+						dispatch(
+							toggleCardState({
+								id,
+								card: {
+									id,
+									name,
+									image,
+									weight,
+									types: typeNames, // Aqui passamos os nomes dos tipos como string[]
+								},
+							})
+						)
+					}>
+					<CatchingPokemon
+						sx={{
+							color: isActive ? '#ff0000' : '#ff0',
+							'&:hover': {
+								color: isActive ? '#ec4a4a' : '#ff0',
+							},
+						}}
+					/>
+				</Button>
 			</CardActions>
 		</Card>
 	);
