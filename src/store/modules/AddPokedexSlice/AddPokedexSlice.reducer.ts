@@ -9,9 +9,9 @@ interface PokemonCard {
 }
 
 interface AddPokedexState {
-	activeCards: { [id: number]: boolean }; // Estados de cada card
-	activeCount: number; // Contador global
-	selectedCards: PokemonCard[]; // Cards selecionados para a Pokedex
+	activeCards: { [id: number]: boolean }; 
+	activeCount: number; 
+	selectedCards: PokemonCard[]; 
 }
 
 const initialState: AddPokedexState = {
