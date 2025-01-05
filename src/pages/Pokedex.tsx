@@ -87,12 +87,12 @@ export const Pokedex = () => {
 								<Grid2
 									key={pokemon.id}
 									size={ { xs: 12, sm: 6, md: 4, lg: 3 } }
-								sx={{  }}>
+								>
 									<CardPokedex
 										types={convertToTypeArray(pokemon.types)}
 										id={pokemon.id}
 										name={pokemon.name}
-										weight={pokemon.weight}
+										height={pokemon.height}
 										image={pokemon.image}
 									/>
 								</Grid2>

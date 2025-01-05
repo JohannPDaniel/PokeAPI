@@ -41,7 +41,7 @@ export const GridCardPokedex = () => {
 							types={pokemon.types}
 							id={pokemon.id}
 							name={pokemon.name}
-							weight={pokemon.weight}
+							height={pokemon.height}
 							image={pokemon.sprites.other['official-artwork'].front_default}
 						/>
 					</Grid2>

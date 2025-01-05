@@ -13,7 +13,7 @@ interface CardPokemonProps {
 	id: number;
 	name: string;
 	image: string;
-	weight: number;
+	height: number;
 	types: Type[];
 }
 
@@ -21,7 +21,7 @@ export function CardPokedex({
 	id,
 	name,
 	image,
-	weight,
+	height,
 	types,
 }: CardPokemonProps) {
 	const navigate = useNavigate();
@@ -78,7 +78,7 @@ export function CardPokedex({
 				image={image}
 				name={name}
 				types={types}
-				weight={weight}
+				height={height}
 			/>
 			<CardActions
 				sx={{
@@ -95,7 +95,7 @@ export function CardPokedex({
 								id,
 								name,
 								image,
-								weight,
+								height,
 								types: typeNames, // Aqui passamos os nomes dos tipos como string[]
 							},
 						})
@@ -121,7 +121,7 @@ export function CardPokedex({
 									id,
 									name,
 									image,
-									weight,
+									height,
 									types: typeNames, // Aqui passamos os nomes dos tipos como string[]
 								},
 							})

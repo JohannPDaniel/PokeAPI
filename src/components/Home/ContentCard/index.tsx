@@ -11,7 +11,7 @@ interface CardPokemonProps {
 	id: number;
 	name: string;
 	image: string;
-	weight: number;
+	height: number;
 	types: Type[];
 }
 
@@ -19,7 +19,7 @@ export const ContentCard = ({
 	id,
 	name,
 	image,
-	weight,
+	height,
 	types,
 }: CardPokemonProps) => {
 	const titleHeight = name.length > 30 ? '100px' : 'auto';
@@ -59,7 +59,7 @@ export const ContentCard = ({
 					sx={{
 						textAlign: 'center',
 					}}>
-					Peso: {Number(weight.toFixed(2)) / 10} kg
+					Height: {height / 10} m
 				</Typography>
 			</CardContent>
 		</CardActionArea>
